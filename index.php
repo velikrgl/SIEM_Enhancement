@@ -115,7 +115,7 @@
 
   <footer class="main-footer">
    
-    <?php include "src/footer.php" ; ?>
+    <?php include "src/pageFooter.php" ; ?>
 
   </footer>
 
