@@ -17,9 +17,9 @@
       </span>
     </a>
     <ul class="treeview-menu">
-      <li><a href="index.html"><i class="fa fa-circle-o"></i> Add Database</a></li>
-      <li><a href="index2.html"><i class="fa fa-circle-o"></i>List Database</a></li>
-      <li><a href="index2.html"><i class="fa fa-circle-o"></i>Database Status</a></li>
+      <li><a href="#"><i class="fa fa-circle-o"></i> Add Database</a></li>
+      <li><a href="#"><i class="fa fa-circle-o"></i>List Database</a></li>
+      <li><a href="#"><i class="fa fa-circle-o"></i>Database Status</a></li>
     </ul>
 
 
