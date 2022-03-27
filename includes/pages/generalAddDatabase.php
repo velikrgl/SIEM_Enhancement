@@ -4,37 +4,61 @@
 
     <section class="content-header">
       <h1>
-       Add Database
+        Add Database
       </h1>
-    </section>    <!-- Main content -->
+    </section> <!-- Main content -->
 
 
     <section class="content">
 
-<!-- Default box -->
-<div class="box">
-  <div class="box-header with-border">
-    <h3 class="box-title">Add Database</h3>
+      <!-- Default box -->
+      <div class="box">
+        <div class="box-header with-border">
 
-    <div class="box-tools pull-right">
-      <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-              title="Collapse">
-        <i class="fa fa-minus"></i></button>
-      <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-        <i class="fa fa-times"></i></button>
-    </div>
-  </div>
-  <div class="box-body">
-   Let's Do It
-  </div>
-  <!-- /.box-body -->
-  <div class="box-footer">
-    Footer
-  </div>
-  <!-- /.box-footer-->
-</div>
-<!-- /.box -->
+        </div>
+        <div class="box-body">
 
-</section>    <!-- /.content -->
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Special title treatment</h5>
+                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                  <div class="mb-3">
+                    <label for="formFile" class="form-label">Select a File</label>
+                    <input class="form-control" type="file" id="formFile">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            
+
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Special title treatment</h5>
+                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                  <div class="mb-3">
+                    <label for="formFile" class="form-label">Select a File</label>
+                    <input class="form-control" type="file" id="formFile">
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+        </div>
+        <!-- /.box-body -->
+
+
+      </div>
+      <!-- /.box -->
+
+    </section> <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

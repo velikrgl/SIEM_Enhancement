@@ -70,12 +70,8 @@
         </div>
         <a href="#" class="btn btn-primary">Status</a>
       </div>
-      <!-- /.box-body -->
-
-
-      <!-- /.box-footer-->
-  </div>
-  <!-- /.box -->
+ 
+      
 
   </section> <!-- /.content -->
   </div>

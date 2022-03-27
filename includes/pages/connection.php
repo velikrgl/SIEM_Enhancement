@@ -62,15 +62,6 @@
     </div>
 
     
-    
-
-
-    <!-- /.box-body -->
-
-
-    <!-- /.box-footer-->
-</div>
-<!-- /.box -->
 
 </section> <!-- /.content -->
 </div>
