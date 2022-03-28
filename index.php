@@ -1,4 +1,42 @@
+<?php include("config.php");
 
+ // die(phpinfo());   
+
+if(isset($_SESSION['gradUser'])!=''){  header("Location:admin.php"); }
+
+$message = '';
+$p = "";
+
+if(isset($_POST) && isset($_POST['username'])!='' && isset($_POST['password'])!=''){
+
+    $username=$_POST['username'];
+    $password=$_POST['password'];
+
+ $sql=$dbh->prepare("SELECT * FROM accounts WHERE username=?");
+ $sql->execute(array($username));
+ while($r=$sql->fetch()){
+  $p=$r['password'];
+  $id=$r['id'];
+ }
+
+ $md5Password = md5($password);
+ $message = "";
+ if($p==$md5Password){
+  $_SESSION['gradUser']=$username;
+  $_SESSION['gradPass']=$md5Password;
+  redirecLink("admin.php");
+  $message = '
+  <div class="alert alert-success mb-4" role="alert">
+    <strong>Successfull login!</button>
+    </div>'.redirecLink("admin.php");
+ }else{
+  $message = '
+  <div class="alert alert-danger mb-4" role="alert">
+    <strong>Wrong Login! </button>
+    </div>';
+ }
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,15 +78,15 @@
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session</p>
+    <p class="login-box-msg"><?php echo $message; ?></p>
 
-    <form action="admin.php" method="post">
+    <form method="post" name="login" action="">
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Email">
+        <input type="text" name="username" class="form-control" placeholder="username">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password">
+        <input type="password" name="password" class="form-control" placeholder="Password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">

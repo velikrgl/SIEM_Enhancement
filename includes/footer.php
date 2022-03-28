@@ -218,6 +218,18 @@
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="bower_components/datatables.net-bs/js/dataTables.buttons.min.js"></script>
+<script src="bower_components/datatables.net-bs/js/pdfmake.min.js"></script>
+<script src="bower_components/datatables.net-bs/js/vfs_fonts.js"></script>
+<script src="bower_components/datatables.net-bs/js/jszip.min.js"></script>
+<script src="bower_components/datatables.net-bs/js/buttons.html5.min.js"></script>
+<script src="bower_components/datatables.net-bs/js/buttons.print.min.js"></script>
+
+<!-- sweetalert -->
+<script src="bower_components/sweetalert/sweetalert2.min.js"></script>
 <!-- SlimScroll -->
 <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->

@@ -1,5 +1,6 @@
 <?php
 
+include("includes/sec.php");  
 include("includes/header.php");
 
 
