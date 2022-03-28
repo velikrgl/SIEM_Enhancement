@@ -4,37 +4,86 @@
 
     <section class="content-header">
       <h1>
-       List Database
+        List Database
       </h1>
-    </section>    <!-- Main content -->
+    </section> <!-- Main content -->
 
 
     <section class="content">
 
-<!-- Default box -->
-<div class="box">
-  <div class="box-header with-border">
-    <h3 class="box-title">List Database</h3>
+      <!-- Default box -->
+      <div class="box">
+        <div class="box-header with-border">
 
-    <div class="box-tools pull-right">
-      <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-              title="Collapse">
-        <i class="fa fa-minus"></i></button>
-      <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-        <i class="fa fa-times"></i></button>
-    </div>
-  </div>
-  <div class="box-body">
-   Let's Do It
-  </div>
-  <!-- /.box-body -->
-  <div class="box-footer">
-    Footer
-  </div>
-  <!-- /.box-footer-->
-</div>
-<!-- /.box -->
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="blackcheck">
+            <label class="form-check-label" for="flexCheckDefault">All</label>
 
-</section>    <!-- /.content -->
+            <input style="margin-left: 30px;" class="form-check-input" type="checkbox" value="" id="whitecheck">
+            <label class="form-check-label" for="flexCheckDefault">Black List</label>
+
+            <input style="margin-left: 30px;" class="form-check-input" type="checkbox" value="" id="whitecheck">
+            <label class="form-check-label" for="flexCheckDefault">White List</label>
+          
+              <input style="margin-left: 55%;" id="search-input" type="search" id="form1" placeholder="Search..." class="form-check-input" />
+              <label class="form-label" for="form1"></label>
+              <button id="search-button" type="button" class="btn btn-primary"><i class="fas fa-search"></i> </button>
+            
+          </div>
+
+         
+           
+        <div class="box-body">
+          <div class="box">
+            <div class="box-header with-border">
+              <table class="table table-striped">
+                <thead style="background-color: black; color: white; " class="thead-dark">
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">IP</th>
+                    <th scope="col">HASH</th>
+                    <th scope="col">URL</th>
+                  </tr>
+                </thead>
+                <?php
+
+                $conn = new mysqli('localhost', 'root', '', 'gradproj');
+                $sql = "SELECT * FROM  connections";
+                $result = $conn->query($sql);
+
+
+                if ($result->num_rows > 0) {
+
+                  while ($rows = $result->fetch_assoc()) {
+                ?>
+                    <tr>
+                      <!--FETCHING DATA FROM EACH 
+                    ROW OF EVERY COLUMN-->
+                      <td><?php echo $rows['id']; ?></td>
+                      <td><?php echo $rows['connection_name']; ?></td>
+                      <td><?php echo $rows['status']; ?></td>
+
+                    </tr>
+                <?php
+                  }
+                } else {
+                  echo "No Result";
+                }
+
+                ?>
+
+
+
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- /.box -->
+
+    </section> <!-- /.content -->
+
+
   </div>
   <!-- /.content-wrapper -->
