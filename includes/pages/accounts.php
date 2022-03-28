@@ -37,16 +37,7 @@
                                             <th>action</th>
                                         </tr>
                                     </thead>
-                                        <tfoot class="thead-dark">
-                                            <tr>
-                                              <th>username</th>
-                                              <th>name</th>
-                                              <th>surname</th>
-                                              <th>email</th>
-                                              <th>authorization</th>
-                                              <th>action</th>
-                                            </tr>
-                                        </tfoot>
+                                       
                                 </table>
                             </div>
                         </div>
