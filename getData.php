@@ -14,9 +14,10 @@ $dbDetails = array(
 
 if($_GET['db'] == "reports") {
  
-    if(isset($_GET['filter']) && $_GET['filter'] == 2) { $fDb = "scanned_hash"; $fQuery = " scanned_hash != '' "; }
-    else if(isset($_GET['filter']) && $_GET['filter'] == 2) { $fDb = "scanned_url";  $fQuery = " scanned_url != '' "; }
-    else { $fDb = "scanned_ip"; $fQuery = ' scanned_ip != "" ';}
+    if(isset($_GET['filter']) && $_GET['filter'] == 2) {  $fQuery = " scanned_type = '2' "; }
+    else if(isset($_GET['filter']) && $_GET['filter'] == 3) { $fQuery = " scanned_type = '3' "; }
+    else if(isset($_GET['filter']) && $_GET['filter'] == 4) {  $fQuery = ""; }
+    else { $fQuery = " scanned_type = '1' ";}
 
 $table = 'scanned_db';
 $getLink = "reports";
@@ -27,7 +28,7 @@ $primaryKey = 'id';
 
 
 $columns = array(
-    array( 'db' =>  $fDb, 'dt' => 0 ),
+    array( 'db' => 'scanned_source', 'dt' => 0 ),
     array( 'db' => 'scanned_time', 'dt' => 1 ),
     array( 'db' => 'status', 'dt' => 2 ),
     array( 'db' => 'which_api_src', 'dt' => 3 ),
