@@ -24,5 +24,4 @@ function dbPrepare($q,$e){
      return $sql;
 }
 ?>
-
-function 
+ 
