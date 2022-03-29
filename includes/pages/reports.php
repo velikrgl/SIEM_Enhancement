@@ -55,17 +55,7 @@ else if(isset($_GET['filter']) && $_GET['filter'] == 4) { $filter = "ALL";  $fNu
                                             <th>city</th>
                                         </tr>
                                     </thead>
-                                        <tfoot class="thead-dark">
-                                            <tr>
-                                            <th><?php echo $filter; ?></th>
-                                            <th>time</th>
-                                            <th>status</th>
-                                            <th>which_api_src</th>
-                                            <th>blocked</th>
-                                            <th>country</th>
-                                            <th>city</th>
-                                            </tr>
-                                        </tfoot>
+                                      
                                 </table>
                             </div>
                         </div>
