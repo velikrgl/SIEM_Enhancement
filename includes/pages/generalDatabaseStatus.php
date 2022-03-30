@@ -16,10 +16,6 @@
           <div class="box box-danger">
             <div class="box-header with-border">
               <h3 class="box-title">Database</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-              </div>
             </div>
             <div class="box-body">
               <canvas id="dbStatus" style="height:250px"></canvas>
@@ -33,10 +29,6 @@
           <div class="box box-danger">
             <div class="box-header with-border">
               <h3 class="box-title">IP HASH URL</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-              </div>
             </div>
             <div class="box-body">
               <canvas id="ipHash" style="height:250px"></canvas>
@@ -50,10 +42,6 @@
         <div class="box box-info">
               <div class="box-header with-border">
                 <h3 class="box-title">DataEntered by Day</h3>
-
-                <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-              </div>
 
               </div>
               <div class="box-body">
