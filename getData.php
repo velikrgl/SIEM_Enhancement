@@ -40,7 +40,7 @@ $columns = array(
 } else if($_GET['db'] == "accounts") {
 
     $table = 'accounts';
-    $getLink = "accounts";
+    $getLink = "accountsAddMember";
     
     // Table's primary key
     $primaryKey = 'id';
