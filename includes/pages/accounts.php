@@ -98,15 +98,10 @@
                   padding: '2em'
                 }).then(function(result) {
                     if(result.value){
-                        $.ajax({url: "admin.php?db=personel&act=sil&id="+id, success: function(result){
-                            if(result == "ok") {
-                                swal(
-                                'Transaction Successful',
-                                'Account deleted'
-                                );
+                        $.ajax({url: "admin.php?db=accounts&act=delete&id="+id, success: function(result2){ 
+                            
+                            $('#html5-extension').DataTable().ajax.reload();
 
-                                $('#html5-extension').DataTable().ajax.reload();
-                            }
                         }});
                         }
                 });
