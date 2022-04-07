@@ -311,8 +311,9 @@
       <span>System Health</span>
     </a>
     </li>
+
      <li class="treeview <?=(isset($_GET['page']) && ($_GET['page'] == 'generalAddDatabase' || $_GET['page'] == 'generalListDatabase' || $_GET['page'] == 'generalDatabaseStatus' )  )?'active menu-open':'';?>">
-    <a href="admin.php">
+    <a href="#">
       <i class="fa-solid fa-database"></i> <span>General</span>
       <span class="pull-right-container">
         <i class="fa fa-angle-left pull-right"></i>
@@ -324,12 +325,18 @@
       <li <?=(isset($_GET['page']) && $_GET['page'] == 'generalDatabaseStatus' )?'class="active"':'';?>><a href="admin.php?page=generalDatabaseStatus"><i class="fa fa-circle-o"></i>Database Status</a></li>
     </ul>
     </li>
-    
-    <li <?=(isset($_GET['page']) && $_GET['page'] == 'accounts' )?'class="active"':'';?>>
-    <a href="admin.php?page=accounts">
-      <i class="fa-solid fa-users"></i>
-      <span>Accounts</span>
+  
+    <li class="treeview <?=(isset($_GET['page']) && ($_GET['page'] == 'accounts' || $_GET['page'] == 'accountsAddMember' )  )?'active menu-open':'';?>">
+    <a href="#">
+      <i class="fa-solid fa-database"></i> <span>Accounts</span>
+      <span class="pull-right-container">
+        <i class="fa fa-angle-left pull-right"></i>
+      </span>
     </a>
+    <ul class="treeview-menu">
+      <li <?=(isset($_GET['page']) && $_GET['page'] == 'accounts' )?'class="active"':'';?> ><a href="admin.php?page=accounts"><i class="fa fa-circle-o"></i> Accounts List</a></li>
+      <li <?=(isset($_GET['page']) && $_GET['page'] == 'accountsAddMember' )?'class="active"':'';?>><a href="admin.php?page=accountsAddMember"><i class="fa fa-circle-o"></i>Add Accounts</a></li>
+    </ul>
     </li>
 
     <li <?=(isset($_GET['page']) && $_GET['page'] == 'connection' )?'class="active"':'';?>>
