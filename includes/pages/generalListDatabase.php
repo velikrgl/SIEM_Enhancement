@@ -19,9 +19,9 @@ else if(isset($_GET['filter']) && $_GET['filter'] == 3) { $filter = "ALL";  $fNu
       </h1>
       <br /><br />
       <div class="btn-group">
+          <a href="admin.php?page=generalListDatabase&filter=4" type="button" <?= ( (isset($_GET['filter']) && $_GET['filter'] == 3) || !isset($_GET['filter']) )?'class="btn btn-danger"':'class="btn btn-default"';?>>ALL</a>
           <a href="admin.php?page=generalListDatabase&filter=1" type="button" <?= (isset($_GET['filter']) && $_GET['filter'] == 1)?'class="btn btn-danger"':'class="btn btn-default"';?> >White List</a>
           <a href="admin.php?page=generalListDatabase&filter=2" type="button" <?= (isset($_GET['filter']) && $_GET['filter'] == 2)?'class="btn btn-danger"':'class="btn btn-default"';?>>Black List</a>
-          <a href="admin.php?page=generalListDatabase&filter=4" type="button" <?= ( (isset($_GET['filter']) && $_GET['filter'] == 3) || !isset($_GET['filter']) )?'class="btn btn-danger"':'class="btn btn-default"';?>>ALL</a>
       </div>
 
     </section>    <!-- Main content -->
