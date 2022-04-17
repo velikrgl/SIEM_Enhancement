@@ -15,7 +15,7 @@ else if(isset($_GET['filter']) && $_GET['filter'] == 3) { $filter = "ALL";  $fNu
 
     <section class="content-header">
       <h1>
-      Reports
+      List Database
       </h1>
       <br /><br />
       <div class="btn-group">
