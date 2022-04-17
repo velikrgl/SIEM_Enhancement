@@ -37,6 +37,44 @@ $columns = array(
     array( 'db' => 'city', 'dt' => 6 ),
 );
 
+} else if($_GET['db'] == "listDatabase") {
+ 
+    if(isset($_GET['filter']) && $_GET['filter'] == 1) {  $fQuery = " blackOrWhite = '1' "; }
+    if(isset($_GET['filter']) && $_GET['filter'] == 2) {  $fQuery = " blackOrWhite = '0' "; }
+
+$table = 'connections';
+$getLink = "generalListDatabase";
+
+// Table's primary key
+$primaryKey = 'id';
+
+
+
+$columns = array(
+    array( 'db' => 'id', 'dt' => 0 ),
+    array( 'db' => 'blackOrWhite', 'dt' => 1,
+    'formatter' => function( $d, $row ) {
+        if($d == 1) $mes ='<span class="text-success">White List</span>';
+        else  $mes ='<span class="text-danger">Black List</span>';
+
+        return $mes;
+    }
+
+    ),
+    array( 'db' => 'connection_name', 'dt' => 2 ),
+    array( 'db' => 'api_query', 'dt' => 3 ),
+    array( 'db' => 'fetch_time', 'dt' => 4 ),
+    array( 'db' => 'status', 'dt' => 5,
+
+    'formatter' => function( $d, $row ) {
+    
+        if($d == 1) $mes ='<span class="text-success">Active</span>';
+        else  $mes ='<span class="text-danger">Passive</span>';
+        return $mes;
+    }
+    ),
+);
+
 } else if($_GET['db'] == "accounts") {
 
     $table = 'accounts';
