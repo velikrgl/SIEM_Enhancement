@@ -13,11 +13,12 @@ $dbDetails = array(
 
 
 if($_GET['db'] == "reports") {
- 
-    if(isset($_GET['filter']) && $_GET['filter'] == 2) {  $fQuery = " scanned_type = '2' "; }
+
+    if(isset($_GET['filter']) && $_GET['filter'] == 1) {  $fQuery = " scanned_type = '1' "; }
+    else if(isset($_GET['filter']) && $_GET['filter'] == 2) {  $fQuery = " scanned_type = '2' "; }
     else if(isset($_GET['filter']) && $_GET['filter'] == 3) { $fQuery = " scanned_type = '3' "; }
     else if(isset($_GET['filter']) && $_GET['filter'] == 4) {  $fQuery = ""; }
-    else { $fQuery = " scanned_type = '1' ";}
+
 
 $table = 'scanned_db';
 $getLink = "reports";

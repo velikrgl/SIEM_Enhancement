@@ -2,7 +2,8 @@
 
 $filter = "ALL"; 
 $fNum = 4;
-if(isset($_GET['filter']) && $_GET['filter'] == 2) {$filter = "HASH";  $fNum = 2;}
+if(isset($_GET['filter']) && $_GET['filter'] == 1) {$filter = "IP";  $fNum = 1;}
+else if(isset($_GET['filter']) && $_GET['filter'] == 2) {$filter = "HASH";  $fNum = 2;}
 else if(isset($_GET['filter']) && $_GET['filter'] == 3) { $filter = "URL";  $fNum = 3;} 
 else if(isset($_GET['filter']) && $_GET['filter'] == 4) { $filter = "ALL";  $fNum = 4;} 
 
@@ -17,10 +18,11 @@ else if(isset($_GET['filter']) && $_GET['filter'] == 4) { $filter = "ALL";  $fNu
       </h1>
       <br /><br />
       <div class="btn-group">
+          <a href="admin.php?page=reports&filter=4" type="button" <?= ( (isset($_GET['filter']) && $_GET['filter'] == 4) || !isset($_GET['filter']) )?'class="btn btn-danger"':'class="btn btn-default"';?>>ALL</a>
           <a href="admin.php?page=reports&filter=1" type="button" <?= (isset($_GET['filter']) && $_GET['filter'] == 1)?'class="btn btn-danger"':'class="btn btn-default"';?> >IP</a>
           <a href="admin.php?page=reports&filter=2" type="button" <?= (isset($_GET['filter']) && $_GET['filter'] == 2)?'class="btn btn-danger"':'class="btn btn-default"';?>>HASH</a>
           <a href="admin.php?page=reports&filter=3" type="button" <?= (isset($_GET['filter']) && $_GET['filter'] == 3)?'class="btn btn-danger"':'class="btn btn-default"';?>>URL</a>
-          <a href="admin.php?page=reports&filter=4" type="button" <?= ( (isset($_GET['filter']) && $_GET['filter'] == 4) || !isset($_GET['filter']) )?'class="btn btn-danger"':'class="btn btn-default"';?>>ALL</a>
+          
       </div>
 
     </section>    <!-- Main content -->
