@@ -29,9 +29,9 @@
 
           $conn = new mysqli('localhost','root','','gradproj');
           $sql = "SELECT * FROM  connections";
-          $sql2 = "SELECT * FROM connection_info";
+        
           $result = $conn->query($sql);
-          $result2 =$conn->query($sql2);
+         
 
     
           if ($result->num_rows > 0) {
