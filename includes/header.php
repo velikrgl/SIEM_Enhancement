@@ -304,6 +304,14 @@
 
 
   <li class="header">MAIN NAVIGATION MENU</li>
+
+  <li <?=(isset($_GET['page']) && $_GET['page'] == 'dashboard' )?'class="active"':'';?>>
+    <a href="admin.php?page=dashboard">
+    <i class="fa-solid fa-copy"></i>
+      <span>Dashboard</span>
+    </a>
+    </li>
+
   <li>
 
     <a href="admin.php">
@@ -360,6 +368,7 @@
     </a>
     </li>
     
+
     <li>
     <a href="logout.php">
     <i class="fa-solid fa-sign-out"></i>
