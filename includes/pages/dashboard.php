@@ -113,14 +113,48 @@
                 
               </div>
             </div>
+
+            
             <div class="box-body chart-responsive">
               <div class="chart" id="line-chart" style="height: 300px;"></div>
+              
             </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
-      
-          
+   
+
+
+
+        </div>
+        
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Language', 'Speakers (in millions)'],
+          ['German',  5.85],
+          ['French',  1.66],
+          ['Italian', 0.316],
+          ['Romansh', 0.0791]
+        ]);
+
+      var options = {
+        legend: 'none',
+        pieSliceText: 'label',
+        title: 'Swiss Language Use (100 degree rotation)',
+        pieStartAngle: 100,
+      };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+      }
+    </script>
+  <body>
+    <div id="piechart" style="width: 700px; height: 350px; margin-left: 600px;"></div>
+  </body>
     </section>
     <!-- /.content -->
 
