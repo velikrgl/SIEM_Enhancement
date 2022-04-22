@@ -27,17 +27,17 @@
         <div class="col-sm-8">
           <div style="padding: 20px; border: 2px solid black;" class="card">
             <div class="card-body">
-              <h5 class="card-title"><?php echo strtoupper($rows['connection_name']); ?></h5>
-              <p class="card-text">Connection details.</p>
+              <h5 class="card-title " style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-weight: bold;"><?php echo strtoupper($rows['connection_name']); ?></h5>
+              
             </div>
             <div class="connection_details">
             <?php $status = $rows['status'];
                 if ($status == 1) {
                 ?>
-                  <i style="color: green; font-weight: bold; " class="fa-solid fa-link fa-xl" ></i>
+                  <i style="color: green; font-weight: bold;" class="fa-solid fa-link fa-xl" > <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; margin-left: 40px;">Connected</p> </i>
                 <?php
                 } else { ?>
-                 <i style="color: red; font-weight: bold; " class="fa-solid fa-bug-slash fa-xl"></i>
+                 <i style="color: red; font-weight: bold;" class="fa-solid fa-bug-slash fa-xl"><p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; margin-left: 40px;">Disconnect</p></i>
                 
                 <?php
                 }
