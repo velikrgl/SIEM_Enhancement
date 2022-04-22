@@ -134,16 +134,33 @@
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Language', 'Speakers (in millions)'],
-          ['German', 5.85],
-          ['French', 1.66],
-          ['Italian', 0.316],
-          ['Romansh', 0.0791]
+          <?php 
+         $sql = "SELECT COUNT(id) FROM scanned_db where  scanned_type=1 ;";
+         
+         $result = mysqli_query($conn, $sql);
+         $rows = mysqli_fetch_row($result);
+         $ip = $rows[0];
+
+         $sql2 = "SELECT COUNT(id) FROM scanned_db where  scanned_type=2 ;";
+         $result2 = mysqli_query($conn, $sql2);
+         $rows2 = mysqli_fetch_row($result2);
+         $hash = $rows2[0];
+
+         $sql3 = "SELECT COUNT(id) FROM scanned_db where  scanned_type=3 ;";
+         $result3 = mysqli_query($conn, $sql3);
+         $rows3 = mysqli_fetch_row($result3);
+         $url = $rows3[0];
+          ?>
+          ['IP', <?php echo $ip ?>],
+          ['HASH', <?php echo $hash ?>],
+          ['URL', <?php echo $url ?>],
+          
         ]);
 
         var options = {
           legend: 'none',
           pieSliceText: 'label',
-          title: 'Swiss Language Use (100 degree rotation)',
+          title: 'Scanned Data Distribution',
           pieStartAngle: 100,
         };
 
