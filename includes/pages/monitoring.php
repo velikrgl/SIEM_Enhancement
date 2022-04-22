@@ -28,7 +28,7 @@
         <div class="col-md-6">
           <div class="box box-danger">
             <div class="box-header with-border">
-              <h3 class="box-title">Malicious IPs</h3>
+              <h3 class="box-title">Malicious Data</h3>
             </div>
             <div class="box-body">
               <canvas id="ipHash" style="height:250px"></canvas>
