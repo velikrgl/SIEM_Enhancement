@@ -39,6 +39,74 @@
         </div>
 
     </div>
+<div class="title">
+  <h3>Top 10 Countries - IP Reputation </h3>
+</div>
+      <!-- Default box -->
+      <div class="box">
+      <div class="box-header with-border">
+        <table class="table table-striped">
+          <thead style="background-color: black; color: white; " class="thead-dark">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Country</th>
+              <th scope="col">City</th>
+              <th scope="col">Count</th>
+              <th scope="col">Block Status</th>
+              <th scope="col">Scan Time</th>
+            </tr>
+          </thead>
+
+          <?php
+
+          $conn = new mysqli('localhost', 'root', '', 'gradproj');
+          $sql = "SELECT id,country,city,COUNT(country) as number,blocked,scanned_time FROM `scanned_db` GROUP BY country ORDER BY number DESC LIMIT 0,10";
+
+
+          $result = $conn->query($sql);
+
+//TOP-10-
+//SELECT id,country,city,COUNT(country) as number,blocked,scanned_time FROM `scanned_db` GROUP BY country ORDER BY number DESC LIMIT 0,10;
+
+
+
+          if ($result->num_rows > 0) {
+$id_count=1;
+            while ($rows = $result->fetch_assoc()) {
+          ?>
+              <tr>
+                <!--FETCHING DATA FROM EACH 
+                    ROW OF EVERY COLUMN-->
+                <td><?php echo $id_count++; ?></td>
+                <td><?php echo $rows['country']; ?></td>
+                <td><?php echo $rows['city']; ?></td>
+                <td><?php echo $rows['number']; ?></td>
+                <?php $status = $rows['blocked'];
+                if ($status == 1) {
+                ?>
+                  <td style="background-color: greenyellow;"> <?php echo "Blocked" ?></td>
+                <?php
+                } else { ?>
+                  <td style="background-color: red; color: white;"> <?php echo "NO Blocked" ?></td>
+                <?php
+                }
+                ?>
+                <td><?php echo $rows['scanned_time']; ?></td>
+
+              </tr>
+          <?php
+            }
+          } else {
+            echo "No Result";
+          }
+
+          ?>
+
+
+
+        </table>
+      </div>
+    </div>
 </section>    <!-- /.content -->
   </div>
 <!-- ChartJS -->
