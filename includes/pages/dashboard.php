@@ -135,7 +135,7 @@
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Scan', 'Data'],
+          ['Language', 'Speakers (in millions)'],
           <?php 
          $sql = "SELECT COUNT(id) FROM scanned_db where  scanned_type=1 ;";
          
@@ -172,7 +172,7 @@
     </script>
 
     <body>
-      <div id="piechart" style="width: 800px; height: 350px; margin-left: 830px; font-size: larger;"></div>
+      <div id="piechart" style="width: 700px; height: 350px; margin-left: 600px;"></div>
     </body>
   </section>
   <!-- /.content -->
