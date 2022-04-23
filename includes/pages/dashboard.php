@@ -36,14 +36,37 @@
           <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
         </div>
       </div>
+
       <!-- ./col -->
       <div class="col-lg-3 col-xs-6">
         <!-- small box -->
         <div class="small-box bg-green">
           <div class="inner">
-            <h3>53<sup style="font-size: 20px">%</sup></h3>
+            <!-- db_status database;
+          info type ; 
+          1- black list
+          2- white list
+          type ;
+          1-ip
+          2-hash
+          3-url
+          -->
+            <?php
 
-            <p>Database black/white list %</p>
+            $sql = "SELECT COUNT(id) FROM db_status WHERE info_type = 1;";
+            $sql2 = "SELECT COUNT(id) FROM db_status WHERE info_type = 2;";
+
+            $result = mysqli_query($conn, $sql);
+            $result2 = mysqli_query($conn, $sql2);
+            $rows = mysqli_fetch_row($result);
+            $rows2 = mysqli_fetch_row($result2);
+          
+            $total = $rows[0]+$rows2[0];
+            
+            ?>
+            <h3><?php echo ($rows[0]/$total)*100 ?><sup style="font-size: 20px">%</sup></h3>
+
+            <p>Percentage of black list in all data </p>
           </div>
           <div class="icon">
             <i class="ion ion-stats-bars"></i>
@@ -51,6 +74,8 @@
           <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
         </div>
       </div>
+
+
       <!-- ./col -->
       <div class="col-lg-3 col-xs-6">
         <!-- small box -->
@@ -172,7 +197,7 @@
     </script>
 
     <body>
-      <div id="piechart" style="width: 700px; height: 350px; margin-left: 600px;"></div>
+      <div id="piechart" style="display: flex; float: right; width: 50%; height: 350px;"></div>
     </body>
   </section>
   <!-- /.content -->
