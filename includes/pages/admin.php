@@ -23,8 +23,8 @@
             while ($rows = $result->fetch_assoc()) {
           ?>
       <!-- Default box -->
-      <div class="col-sm-6">
-        <div class="col-sm-8">
+      <div class="col-sm-8">
+        <div class="col-sm-10">
           <div style="padding: 20px; border: 2px solid black;" class="card">
             <div class="card-body">
               <h5 class="card-title " style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-weight: bold;"><?php echo strtoupper($rows['connection_name']); ?></h5>
