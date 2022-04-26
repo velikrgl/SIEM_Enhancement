@@ -30,7 +30,7 @@
             <div class="col-sm-12">
               <div style="padding: 30px; margin-top: 5px; border: 2px solid black;" class="card">
                 <div style="margin-bottom: 15px; border: outset;" class="card-body">
-                  <h5 class="card-title" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: larger; font-weight: bold;"><?php echo strtoupper($rows['connection_name']); ?> </h5>
+                  <h5  class="card-title" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: larger; font-weight: bold;"><?php echo strtoupper($rows['connection_name']); ?> </h5>
 
                 </div>
                 <div class="connection_details">
@@ -40,7 +40,7 @@
 
                   ?>
 
-                    <button style="float: right; font-size: 11px;" type="button" data-toggle="modal" data-target="#connection-details" class="btn btn-primary">Connection Details </button>
+                    <button style="float: right; font-size: 11px;" id="<?php echo $rows['connection_name'] ?>" type="button" data-toggle="modal" data-target="#connection-details" class="btn btn-primary conn-details">Connection Details </button>
 
                     <i style="color: green; font-weight: bold;" class="fa-solid fa-link fa-xl">
                       <p style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; margin-left: 40px;">Connected</p>
@@ -48,7 +48,7 @@
                   <?php
                   } else { ?>
 
-                    <button style="float: right; font-size: 12px;" data-toggle="modal" type="button" data-target="#reset-connection" class="btn btn-danger">Reset Connection</button>
+                    <button style="float: right; font-size: 12px;"  id="<?php echo $rows['connection_name'] ?>" data-toggle="modal" type="button" data-target="#reset-connection" class="btn btn-danger">Reset Connection</button>
 
                     <i style="color: red; font-weight: bold;" class="fa-solid fa-bug-slash fa-xl">
                       <p style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;   margin-left: 40px;">Disconnect</p>
@@ -93,13 +93,15 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Connection Details</h5>
+              <h5 class="modal-title" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-weight: bolder; font-size: 20px;" id="exampleModalLongTitle">Connection Details</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
-
+            <div class="modal-body" id="connection_details_body">
+          <?php
+          echo "test";
+          ?>
 
             </div>
             <div class="modal-footer">
@@ -116,13 +118,14 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Reset Connection</h5>
+              <h5 class="modal-title" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-weight: bolder; font-size: 20px;" id="exampleModalLongTitle">Reset Connection</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              ...
+            <pre>See the connections tab to update connection !</pre>  
+            
             </div>
             <div class="modal-footer">
              
@@ -130,6 +133,36 @@
           </div>
         </div>
       </div>
+
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+      <script>
+
+        $(document).ready(function(){
+          console.log("test2");
+        $('.conn-details').click (function(){
+        var con_name = $(this).attr("id");
+        console.log("test");
+        console.log(con_name);
+        $.ajax({
+        url:"includes/pages/conn_details.php",
+        method:"post",
+        data:{con_name:con_name},
+        success:function(data){
+
+        $('#connection_details_body').html(data);
+        }
+
+        });
+
+         
+          
+          
+          });
+        
+ });
+
+
+      </script>
 
     </section> <!-- /.content -->
   </div>

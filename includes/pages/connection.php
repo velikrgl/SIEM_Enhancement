@@ -3,7 +3,7 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Connection
+      Connections
     </h1>
   </section> <!-- Main content -->
 
@@ -16,7 +16,7 @@
         <table class="table table-striped">
           <thead style="background-color: black; color: white; " class="thead-dark">
             <tr>
-              <th scope="col">id</th>
+              <th scope="col">ID</th>
               <th scope="col">Connection Name</th>
               <th scope="col">Status</th>
               <th scope="col">BlackOrWhite</th>

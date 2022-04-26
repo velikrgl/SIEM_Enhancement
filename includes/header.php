@@ -350,7 +350,7 @@
     <li <?=(isset($_GET['page']) && $_GET['page'] == 'connection' )?'class="active"':'';?>>
     <a href="admin.php?page=connection">
     <i class="fa-solid fa-satellite-dish"></i>
-      <span>Connection</span>
+      <span>Connections</span>
     </a>
     </li>
     
