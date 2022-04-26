@@ -138,11 +138,9 @@
       <script>
 
         $(document).ready(function(){
-          console.log("test2");
+         
         $('.conn-details').click (function(){
         var con_name = $(this).attr("id");
-        console.log("test");
-        console.log(con_name);
         $.ajax({
         url:"includes/pages/conn_details.php",
         method:"post",

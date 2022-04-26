@@ -22,6 +22,7 @@
               <th scope="col">BlackOrWhite</th>
               <th scope="col">CreatedUser</th>
               <th scope="col">Creation Date</th>
+              <th scope="col">Update Connection</th>
             </tr>
           </thead>
 
@@ -66,6 +67,7 @@
                 ?>
                 <td><?php echo $rows['userwhocreated']; ?></td>
                 <td><?php echo $rows['createdTime']; ?></td>
+                <td><button id="update_connection" type="button" class="btn btn-primary update-conn">Update</button></td>
 
               </tr>
           <?php
@@ -83,6 +85,59 @@
     </div>
 
 
+      <!-- Modal RESET CONNECTION -->
+      <div class="modal fade" id="update_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-weight: bolder; font-size: 20px;" id="exampleModalLongTitle">Reset Connection</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            <pre>See the connections tab to update connection !</pre>  
+            
+            </div>
+            <div class="modal-footer">
+             
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+      <script>
+
+        $(document).ready(function(){
+        $('.update-conn').click (function(){
+
+          $('#update_modal').modal("show");
+        
+
+        var con_name = $(this).attr("id");
+        console.log("test");
+        console.log(con_name);
+        $.ajax({
+        url:"includes/pages/conn_details.php",
+        method:"post",
+        data:{con_name:con_name},
+        success:function(data){
+
+        $('#connection_details_body').html(data);
+        }
+
+        });
+
+         
+          
+          
+          });
+        
+ });
+
+
+      </script>
 
   </section> <!-- /.content -->
 </div>
