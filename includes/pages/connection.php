@@ -67,7 +67,7 @@
                 ?>
                 <td><?php echo $rows['userwhocreated']; ?></td>
                 <td><?php echo $rows['createdTime']; ?></td>
-                <td><button id="update_connection" type="button" class="btn btn-primary update-conn">Update</button></td>
+                <td><button id="<?php echo $rows['id']; ?>" type="button" class="btn btn-primary update-conn">Update</button></td>
 
               </tr>
           <?php
@@ -78,67 +78,90 @@
 
           ?>
 
-
-
         </table>
       </div>
     </div>
 
-
-      <!-- Modal RESET CONNECTION -->
-      <div class="modal fade" id="update_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-weight: bolder; font-size: 20px;" id="exampleModalLongTitle">Reset Connection</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-            <pre>See the connections tab to update connection !</pre>  
-            
-            </div>
-            <div class="modal-footer">
-             
-            </div>
+    <div id="update_modal" class="modal fade" >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Update Connection</h4>
           </div>
+          <div id="modal-body-info" class="modal-body">
+
+            <form method="post" id="insert_form">
+              <label>Connection Name</label>
+              <input type="text" name="conn-name" id="conn-name" class="form-control" />
+              <br />
+              <label>Api Query</label>
+              <input type="text" name="api-query" id="api-query" class="form-control" />
+              <br />
+              <label>Fetch Time</label>
+              <input type="text" name="fetch_time" id="fetch_time" class="form-control" />
+              <br />
+              <label>BlackOrWhite</label>
+              <select name="blackorwhite" id="blackorwhite" class="form-control">
+                <option value="Black">Black</option>
+                <option value="White">White</option>
+              </select>
+              <br />
+
+              <div class="form-check form-check-inline">
+                <label>Status:</label>
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadioOptions" value="status-on" />
+                <label class="form-check-label" for="inlineRadio1">ON</label>
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadioOptions" value="status-off" />
+                <label class="form-check-label" for="inlineRadio2">OFF</label>
+              </div>
+
+
+          </div>
+          <br />
+          <input type="hidden" name="conn_id" id="conn_id" />
+          <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-success" />
+          </form>
         </div>
       </div>
+    </div>
+</div>
 
-      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-      <script>
-
-        $(document).ready(function(){
-        $('.update-conn').click (function(){
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script>
+  $(document).ready(function() {
+    $(document).on('click', '.update-conn', function() {
+      var conn_id = $(this).attr("id");
+      
+      $.ajax({
+        url:"includes/pages/update_connections.php",
+        method:"POST",
+        data:{conn_id:conn_id},
+        dataType: "json", 
+        success:function(response) {
+        
+          $('#modal-body-info').html(response);
           $('#update_modal').modal("show");
         
+          console.log("success");
+          $('#conn-name').val(data.conn-name);
+          $('#api-query').val(data.api-query);
+          $('#fetch_time').val(data.fetch_time);
+          $('#blackorwhite').val(data.blackorwhite);
+          $('#inlineRadioOptions').val(data.inlineRadioOptions);
+          $('#conn_id').val(data.conn_id);
+          $('#insert').val("Update");
+          
 
-        var con_name = $(this).attr("id");
-        console.log("test");
-        console.log(con_name);
-        $.ajax({
-        url:"includes/pages/conn_details.php",
-        method:"post",
-        data:{con_name:con_name},
-        success:function(data){
-
-        $('#connection_details_body').html(data);
         }
+       
 
-        });
+      });
+    });
 
-         
-          
-          
-          });
-        
- });
+  });
+</script>
 
-
-      </script>
-
-  </section> <!-- /.content -->
+</section> <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
