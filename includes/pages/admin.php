@@ -124,11 +124,17 @@
               </button>
             </div>
             <div class="modal-body">
-            <pre>See the connections tab to update connection !</pre>  
-            
+            <pre>See the connections tab to update connections !</pre>  
             </div>
             <div class="modal-footer">
-             
+            <button type="submit" name="redirect-connections" class="btn btn-primary">Go to connections</button>
+            <?php
+            if(isset($_POST["redirect-connections"])){
+              //Give the path for connection.php
+              header('Location:');
+              
+            }
+            ?>
             </div>
           </div>
         </div>
