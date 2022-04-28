@@ -1,3 +1,57 @@
+<head>
+  <script type="text/javascript" src="bower_components\sweetalert2\sweetalert2.all.min.js"></script>
+</head>
+<?php
+$conn = new mysqli('localhost', 'root', '', 'gradproj');
+if (isset($_POST['delete-conn'])) {
+?>
+  <script>
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        swalWithBootstrapButtons.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      } 
+      
+      else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'Your imaginary file is safe :)',
+          'error'
+        )
+      }
+    })
+  </script>
+<?php
+  // Burdan sonra connections tabına yönlenecek
+
+  //redirecLink("admin.php?page=connection");
+
+}
+
+?>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -68,13 +122,9 @@
                 ?>
                 <td><?php echo $rows['userwhocreated']; ?></td>
                 <td><?php echo $rows['createdTime']; ?></td>
-                <td><button id="<?php echo $rows['id']; ?>" type="button" class="btn btn-primary update-conn">Edit</button></td>
-                
-                <form action="includes\pages\delete_conn.php" method="POST">
-                  <input type="hidden" name="id" value="<?php echo $rows['id'] ?>">
-                  <td><input type="submit"  value="Delete" name="delete" class="btn btn-primary" onclick="delete_conn()"> </td>
-
-
+                <td><button id="<?php echo $rows['id']; ?>" type="submit" class="btn btn-primary update-conn">Edit</button></td>
+                <form action="admin.php?page=connection" method="POST">
+                  <td><button id="<?php echo $rows['id']; ?>" name="delete-conn" type="submit" class="btn btn-primary delete-conn">Delete</button></td>
                 </form>
               </tr>
           <?php
@@ -170,32 +220,6 @@
 
 
   });
-
-  function delete_conn(){
-    swal({
-        title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover connection!",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-      })
-      .then((willDelete) => {
-        if (willDelete) {
-          
-          swal("Poof! Connection has been deleted!", {
-            icon: "success",
-          });
-
-        } else {
-          swal("Connection is safe!");
-        }
-      });
-
-
-
-
-  }
-
 </script>
 
 </section> <!-- /.content -->
