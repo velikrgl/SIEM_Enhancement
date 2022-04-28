@@ -22,7 +22,8 @@
               <th scope="col">BlackOrWhite</th>
               <th scope="col">CreatedUser</th>
               <th scope="col">Creation Date</th>
-              <th scope="col">Update Connection</th>
+              <th scope="col">Edit Con </th>
+              <th scope="col">Delete Con</th>
             </tr>
           </thead>
 
@@ -67,8 +68,14 @@
                 ?>
                 <td><?php echo $rows['userwhocreated']; ?></td>
                 <td><?php echo $rows['createdTime']; ?></td>
-                <td><button id="<?php echo $rows['id']; ?>" type="button" class="btn btn-primary update-conn">Update</button></td>
+                <td><button id="<?php echo $rows['id']; ?>" type="button" class="btn btn-primary update-conn">Edit</button></td>
+                
+                <form action="includes\pages\delete_conn.php" method="POST">
+                  <input type="hidden" name="id" value="<?php echo $rows['id'] ?>">
+                  <td><input type="submit"  value="Delete" name="delete" class="btn btn-primary" onclick="delete_conn()"> </td>
 
+
+                </form>
               </tr>
           <?php
             }
@@ -82,7 +89,7 @@
       </div>
     </div>
 
-    <div id="update_modal" class="modal fade" >
+    <div id="Delete_modal" class="modal fade">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -132,34 +139,63 @@
   $(document).ready(function() {
     $(document).on('click', '.update-conn', function() {
       var conn_id = $(this).attr("id");
-      
+
       $.ajax({
-        url:"includes/pages/update_connections.php",
-        method:"POST",
-        data:{conn_id:conn_id},
-        dataType: "json", 
-        success:function(response) {
-        
+        url: "includes/pages/update_connections.php",
+        method: "POST",
+        data: {
+          conn_id: conn_id
+        },
+        dataType: "json",
+        success: function(response) {
+
           $('#modal-body-info').html(response);
           $('#update_modal').modal("show");
-        
+
           console.log("success");
-          $('#conn-name').val(data.conn-name);
-          $('#api-query').val(data.api-query);
+          $('#conn-name').val(data.conn - name);
+          $('#api-query').val(data.api - query);
           $('#fetch_time').val(data.fetch_time);
           $('#blackorwhite').val(data.blackorwhite);
           $('#inlineRadioOptions').val(data.inlineRadioOptions);
           $('#conn_id').val(data.conn_id);
           $('#insert').val("Update");
-          
+
 
         }
-       
+
 
       });
     });
 
+
   });
+
+  function delete_conn(){
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover connection!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          
+          swal("Poof! Connection has been deleted!", {
+            icon: "success",
+          });
+
+        } else {
+          swal("Connection is safe!");
+        }
+      });
+
+
+
+
+  }
+
 </script>
 
 </section> <!-- /.content -->

@@ -13,7 +13,7 @@ if (isset($_POST['addDatabase_black'])) {
   $t = time();
   $time = (date("Y-m-d", $t));
 
-  $sql = "INSERT INTO connections (connection_name,api_query,fetch_time,blackOrWhite,createdTime,userwhocreated,creationReason,status) VALUES ('$conName','$url_external','$refresh_rate','1','$time','','','1')";
+  $sql = "INSERT INTO connections (connection_name,api_query,fetch_time,blackOrWhite,createdTime,userwhocreated,creationReason,status) VALUES ('$conName','$url_external','$refresh_rate','1','$time','admin','','1')";
 
   $result = $conn->query($sql);
 
@@ -33,7 +33,7 @@ if (isset($_POST['addDatabase_white'])) {
   $t = time();
   $time = (date("Y-m-d", $t));
 
-  $sql = "INSERT INTO connections (connection_name,api_query,fetch_time,blackOrWhite,createdTime,userwhocreated,creationReason,status) VALUES ('$conName','$url_external','$refresh_rate','0','$time','','','1')";
+  $sql = "INSERT INTO connections (connection_name,api_query,fetch_time,blackOrWhite,createdTime,userwhocreated,creationReason,status) VALUES ('$conName','$url_external','$refresh_rate','0','$time','admin','','1')";
 
   $result = $conn->query($sql);
 

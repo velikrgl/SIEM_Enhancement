@@ -69,7 +69,10 @@
           </div>
 
       <?php }
-      } ?>
+      } 
+      else{
+      echo "NO DATA AVAILABLE ";
+      }?>
       <div style="margin-top: 30px;" class="clas">
 
       </div>
