@@ -127,14 +127,8 @@
             <pre>See the connections tab to update connections !</pre>  
             </div>
             <div class="modal-footer">
-            <button type="submit" name="redirect-connections" class="btn btn-primary">Go to connections</button>
-            <?php
-            if(isset($_POST["redirect-connections"])){
-              //Give the path for connection.php
-              header('Location:');
-              
-            }
-            ?>
+            <button type="submit" id="btn-redirect"  onclick="location.href = 'admin.php?page=connection';" name="redirect-connections" class="btn btn-primary">Go to connections</button>
+           
             </div>
           </div>
         </div>
