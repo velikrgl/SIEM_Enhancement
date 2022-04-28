@@ -29,9 +29,7 @@ if (isset($_POST['delete-conn'])) {
           'Your file has been deleted.',
           'success'
         )
-      } 
-      
-      else if (
+      } else if (
         /* Read more about handling dismissals below */
         result.dismiss === Swal.DismissReason.cancel
       ) {
