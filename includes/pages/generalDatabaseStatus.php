@@ -1,3 +1,21 @@
+<?php
+$conn = new mysqli('localhost', 'root', '', 'gradproj');
+$sql = "SELECT COUNT(id) FROM db_status WHERE type = 1;";//ip
+$sql2 = "SELECT COUNT(id) FROM db_status WHERE type = 2;";//hash
+$sql3 = "SELECT COUNT(id) FROM db_status WHERE type = 3;";//url info
+
+$result = mysqli_query($conn, $sql);
+$result2 = mysqli_query($conn, $sql2);
+$result3 = mysqli_query($conn, $sql3);
+
+$rows = mysqli_fetch_row($result);
+$rows2 = mysqli_fetch_row($result2);
+$rows3 = mysqli_fetch_row($result3);
+
+
+?>  
+  
+  
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -61,6 +79,7 @@
 <script src="bower_components/chart.js/Chart.js"></script>
 <script>
     
+
  window.onload = function () {
 
   var areaChartData = {
@@ -166,19 +185,19 @@
     var ipHashChart       = new Chart(ipHashCanvas);
     var ipHashData        = [
       {
-        value    : 120,
+        value    : <?php echo $rows[0] ?>,
         color    : '#f56954',
         highlight: '#f56954',
         label    : 'ip'
       },
       {
-        value    : 60,
+        value    : <?php echo $rows2[0] ?>,
         color    : '#00a65a',
         highlight: '#00a65a',
         label    : 'hash'
       },
       {
-        value    : 180,
+        value    : <?php echo $rows3[0] ?>,
         color    : '#3c8dbc',
         highlight: '#3c8dbc',
         label    : 'url'

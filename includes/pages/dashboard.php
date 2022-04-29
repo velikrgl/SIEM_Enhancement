@@ -64,7 +64,7 @@
             $total = $rows[0]+$rows2[0];
             
             ?>
-            <h3><?php echo ($rows[0]/$total)*100 ?><sup style="font-size: 20px">%</sup></h3>
+            <h3><?php echo floor(($rows[0]/$total)*100) ?><sup style="font-size: 20px">%</sup></h3>
 
             <p>Percentage of black list in all data </p>
           </div>
