@@ -1,167 +1,192 @@
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Dashboard
+      <small>Control Panel</small>
+    </h1>
 
-    <section class="content-header">
-      <h1>
-        System Health
-      </h1>
-    </section> <!-- Main content -->
+  </section>
 
+  <!-- Main content -->
+  <section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+      <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+          <div class="inner">
+            <?php
 
-    <section class="content">
+            $sql = "SELECT COUNT(id) FROM scanned_db;";
+            $rows = dbQueryList($sql)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
+            ?>
 
+            <h3><?php echo  $rows[0]; ?> </h3>
 
-      <?php
-
-      $conn = new mysqli('localhost', 'root', '', 'gradproj');
-      $sql = "SELECT * FROM  connections";
-
-      $result = $conn->query($sql);
-      if ($result->num_rows > 0) {
-
-        while ($rows = $result->fetch_assoc()) {
-      ?>
-          <!-- Default box -->
-
-
-
-          <div class="col-sm-5">
-            <div class="col-sm-12">
-              <div style="padding: 30px; margin-top: 5px; border: 2px solid black;" class="card">
-                <div style="margin-bottom: 15px; border: outset;" class="card-body">
-                  <h5  class="card-title" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: larger; font-weight: bold;"><?php echo strtoupper($rows['connection_name']); ?> </h5>
-
-                </div>
-                <div class="connection_details">
-
-                  <?php $status = $rows['status'];
-                  if ($status == 1) {
-
-                  ?>
-
-                    <button style="float: right; font-size: 11px;" id="<?php echo $rows['connection_name'] ?>" type="button" data-toggle="modal" data-target="#connection-details" class="btn btn-primary conn-details">Connection Details </button>
-
-                    <i style="color: green; font-weight: bold;" class="fa-solid fa-link fa-xl">
-                      <p style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; margin-left: 40px;">Connected</p>
-                    </i>
-                  <?php
-                  } else { ?>
-
-                    <button style="float: right; font-size: 12px;"  id="<?php echo $rows['connection_name'] ?>" data-toggle="modal" type="button" data-target="#reset-connection" class="btn btn-danger">Reset Connection</button>
-
-                    <i style="color: red; font-weight: bold;" class="fa-solid fa-bug-slash fa-xl">
-                      <p style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;   margin-left: 40px;">Disconnect</p>
-                      <div style="width: 100px;">
-
-                      </div>
-                    </i>
-
-                  <?php
-                  }
-                  ?>
-                </div>
-
-              </div>
-            </div>
-
-
+            <p>Total Scanned Data</p>
           </div>
-
-      <?php }
-      } 
-      else{
-      echo "NO DATA AVAILABLE ";
-      }?>
-      <div style="margin-top: 30px;" class="clas">
-
-      </div>
-
-      <style>
-        .col-sm-6 {
-          margin-top: 10px;
-        }
-
-        .content {
-          margin-top: 50px;
-          width: 1500px;
-        }
-      </style>
-
-
-      <!--MODALS-->
-
-      <!-- Modal CONNECTION DETAILS-->
-      <div class="modal fade" id="connection-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-weight: bolder; font-size: 20px;" id="exampleModalLongTitle">Connection Details</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body" id="connection_details_body">
-          <?php
-          echo "test";
-          ?>
-
-            </div>
-            <div class="modal-footer">
-
-
-
-            </div>
+          <div class="icon">
+            <i class="fa-brands fa-stumbleupon"></i>
           </div>
+          <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
         </div>
       </div>
 
-      <!-- Modal RESET CONNECTION -->
-      <div class="modal fade" id="reset-connection" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-weight: bolder; font-size: 20px;" id="exampleModalLongTitle">Reset Connection</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-            <pre>See the connections tab to update connections !</pre>  
-            </div>
-            <div class="modal-footer">
-            <button type="submit" id="btn-redirect"  onclick="location.href = 'admin.php?page=connection';" name="redirect-connections" class="btn btn-primary">Go to connections</button>
-           
-            </div>
-          </div>
-        </div>
-      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+          <div class="inner">
+            <!-- db_status database;
+          info type ; 
+          1- black list
+          2- white list
+          type ;
+          1-ip
+          2-hash
+          3-url
+          -->
+            <?php
 
-      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-      <script>
+            $sql = "SELECT COUNT(id) FROM db_status WHERE info_type = 1;";
+            $sql2 = "SELECT COUNT(id) FROM db_status WHERE info_type = 2;";
 
-        $(document).ready(function(){
-         
-        $('.conn-details').click (function(){
-        var con_name = $(this).attr("id");
-        $.ajax({
-        url:"includes/pages/conn_details.php",
-        method:"post",
-        data:{con_name:con_name},
-        success:function(data){
-
-        $('#connection_details_body').html(data);
-        }
-
-        });
+            $rows = dbQueryList($sql)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
+            $rows2 = dbQueryList($sql2)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
           
-          });
-        
- });
+            $total = $rows[0]+$rows2[0];
+            
+            ?>
+            <h3><?php echo floor(($rows[0]/$total)*100) ?><sup style="font-size: 20px">%</sup></h3>
+
+            <p>Percentage of black list in all data </p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-stats-bars"></i>
+          </div>
+          <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
 
 
-      </script>
+      <!-- ./col -->
+      <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-yellow">
+          <div class="inner">
+            <?php
 
-    </section> <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
+            $sql = "SELECT COUNT(id) FROM accounts;";
+            $rows = dbQueryList($sql)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
+            ?>
+            <h3><?php echo  $rows[0];  ?></h3>
+
+            <p>User Registrations</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-person-add"></i>
+          </div>
+          <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-red">
+          <div class="inner">
+            <?php
+
+            $sql = "SELECT COUNT(id) FROM siem_logs;";
+            $rows = dbQueryList($sql)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
+            ?>
+            <h3><?php echo $rows[0] ?></h3>
+            <p>Incoming Logs</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-pie-graph"></i>
+          </div>
+          <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <!-- ./col -->
+    </div>
+
+    <div class="col-md-6">
+      <!-- LINE CHART -->
+      <div class="box box-info">
+        <div class="box-header with-border">
+          <h3 class="box-title">Line Chart</h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+
+
+          </div>
+        </div>
+
+
+        <div class="box-body chart-responsive">
+          <div class="chart" id="line-chart" style="height: 300px;"></div>
+
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+    </div>
+
+    
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {
+        packages: ["corechart"]
+      });
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Language', 'Speakers (in millions)'],
+          <?php 
+         $sql = "SELECT COUNT(id) FROM scanned_db where  scanned_type=1 ;";
+         
+         $rows = dbQueryList($sql)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
+         $ip = $rows[0];
+
+         $sql2 = "SELECT COUNT(id) FROM scanned_db where  scanned_type=2 ;";
+         $rows2 =dbQueryList($sql2)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
+         $hash = $rows2[0];
+
+         $sql3 = "SELECT COUNT(id) FROM scanned_db where  scanned_type=3 ;";
+         $rows3 = dbQueryList($sql3)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
+         $url = $rows3[0];
+          ?>
+          ['IP', <?php echo $ip ?>],
+          ['HASH', <?php echo $hash ?>],
+          ['URL', <?php echo $url ?>],
+          
+        ]);
+
+        var options = {
+          legend: 'none',
+          pieSliceText: 'label',
+          title: 'Scanned Data Distribution',
+          pieStartAngle: 100,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+      }
+    </script>
+
+    <body>
+      <div id="piechart" style="display: flex; float: right; width: 50%; height: 350px;"></div>
+    </body>
+  </section>
+  <!-- /.content -->
+
+
+
+</div>
+<!-- /.content-wrapper -->
