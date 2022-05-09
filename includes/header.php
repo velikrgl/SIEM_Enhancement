@@ -54,6 +54,11 @@
     <!-- For mobile sidebar arrangement  -->
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
+
+    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+
     <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
@@ -305,16 +310,16 @@
 
   <li class="header">MAIN NAVIGATION MENU</li>
 
-  <li <?=(isset($_GET['page']) && $_GET['page'] == 'dashboard' )?'class="active"':'';?>>
-    <a href="admin.php?page=dashboard">
+  <li <?=(!isset($_GET['page']) && empty($_GET['page']) )?'class="active"':'';?>>
+    <a href="admin.php">
     <i class="fa-solid fa-copy"></i>
       <span>Dashboard</span>
     </a>
     </li>
 
-  <li>
+  <li <?=(isset($_GET['page']) && $_GET['page'] == 'systemHealth' )?'class="active"':'';?>>
 
-    <a href="admin.php">
+    <a href="admin.php?page=systemHealth"">
       <i class="fa-solid fa-house-medical"></i>
       <span>System Health</span>
     </a>
