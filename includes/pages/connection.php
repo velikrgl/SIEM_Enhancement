@@ -4,44 +4,21 @@
 <?php
 
 if (isset($_POST['delete-conn'])) {
-?>
-  <script>
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
-      },
-      buttonsStyling: false
-    })
+$id = $_POST['delete-conn'];
 
-    swalWithBootstrapButtons.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, cancel!',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        swalWithBootstrapButtons.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
-      } else if (
-        /* Read more about handling dismissals below */
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Cancelled',
-          'Your imaginary file is safe :)',
-          'error'
-        )
-      }
-    })
-  </script>
-<?php
+$conn = new mysqli('localhost', 'root', '', 'gradproj');
+
+
+$sql = "DELETE FROM connections WHERE id=$id";
+
+$result = $conn->query($sql);
+
+
+//sweet alert needs to be use 
+  
+ 
+  
+
   // Burdan sonra connections tabına yönlenecek
 
   //redirecLink("admin.php?page=connection");
@@ -121,7 +98,7 @@ if (isset($_POST['delete-conn'])) {
                 <td><?php echo $rows['createdTime']; ?></td>
                 <td><button id="<?php echo $rows['id']; ?>" type="submit" class="btn btn-primary update-conn">Edit</button></td>
                 <form action="admin.php?page=connection" method="POST">
-                  <td><button id="<?php echo $rows['id']; ?>" name="delete-conn" type="submit" class="btn btn-primary delete-conn">Delete</button></td>
+                  <td><button value="<?php echo $rows['id']; ?>" name="delete-conn" type="submit" class="btn btn-primary delete-conn">Delete</button></td>
                 </form>
               </tr>
           <?php
