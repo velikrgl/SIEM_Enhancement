@@ -2,7 +2,7 @@
   <script type="text/javascript" src="bower_components\sweetalert2\sweetalert2.all.min.js"></script>
 </head>
 <?php
-$conn = new mysqli('localhost', 'root', '', 'gradproj');
+
 if (isset($_POST['delete-conn'])) {
 ?>
   <script>
@@ -81,16 +81,15 @@ if (isset($_POST['delete-conn'])) {
 
           <?php
 
-          $conn = new mysqli('localhost', 'root', '', 'gradproj');
-          $sql = "SELECT * FROM  connections";
 
-          $result = $conn->query($sql);
-
+        $sql = "SELECT * FROM  connections";
+        $result =dbQueryList($sql);
 
 
-          if ($result->num_rows > 0) {
 
-            while ($rows = $result->fetch_assoc()) {
+          if (count($result->fetch(PDO::FETCH_ASSOC)) > 0) {
+
+            while ($rows = $result->fetch(PDO::FETCH_ASSOC)) {
           ?>
               <tr>
                 <!--FETCHING DATA FROM EACH 
