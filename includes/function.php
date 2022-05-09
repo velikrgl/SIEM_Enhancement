@@ -23,5 +23,13 @@ function dbPrepare($q,$e){
      $dbh =null;
      return $sql;
 }
+
+function dbQueryList($q){
+     $dbh  = new PDO('mysql:dbname='.DB_DB.';charset=UTF8;host='.DB_HOST.';port='.DB_PORT,DB_USER,DB_PASS);
+     $sql=$dbh->query($q);
+     $dbh =null;
+     return $sql;
+}
+
 ?>
  
