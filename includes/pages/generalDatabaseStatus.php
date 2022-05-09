@@ -1,16 +1,12 @@
 <?php
-$conn = new mysqli('localhost', 'root', '', 'gradproj');
+
 $sql = "SELECT COUNT(id) FROM db_status WHERE type = 1;";//ip
 $sql2 = "SELECT COUNT(id) FROM db_status WHERE type = 2;";//hash
 $sql3 = "SELECT COUNT(id) FROM db_status WHERE type = 3;";//url info
 
-$result = mysqli_query($conn, $sql);
-$result2 = mysqli_query($conn, $sql2);
-$result3 = mysqli_query($conn, $sql3);
-
-$rows = mysqli_fetch_row($result);
-$rows2 = mysqli_fetch_row($result2);
-$rows3 = mysqli_fetch_row($result3);
+$rows = dbQueryList($sql)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
+$rows2 = dbQueryList($sql2)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
+$rows3 = dbQueryList($sql3)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
 
 
 ?>  
