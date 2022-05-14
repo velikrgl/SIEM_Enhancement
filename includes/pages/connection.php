@@ -97,9 +97,11 @@ $result = $conn->query($sql);
                 <td><?php echo $rows['userwhocreated']; ?></td>
                 <td><?php echo $rows['createdTime']; ?></td>
                 <td><button id="<?php echo $rows['id']; ?>" type="submit" class="btn btn-primary update-conn">Edit</button></td>
+               <!-- Edit Button-->
                 <form action="admin.php?page=connection" method="POST">
                   <td><button value="<?php echo $rows['id']; ?>" name="delete-conn" type="submit" class="btn btn-primary delete-conn">Delete</button></td>
                 </form>
+              
               </tr>
           <?php
             }
@@ -113,7 +115,7 @@ $result = $conn->query($sql);
       </div>
     </div>
 
-    <div id="Delete_modal" class="modal fade">
+    <div id="update_modal" class="modal fade">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -171,19 +173,20 @@ $result = $conn->query($sql);
           conn_id: conn_id
         },
         dataType: "json",
-        success: function(response) {
+        success: function(data) {
 
           $('#modal-body-info').html(response);
-          $('#update_modal').modal("show");
+         
 
           console.log("success");
-          $('#conn-name').val(data.conn - name);
-          $('#api-query').val(data.api - query);
+          $('#conn-name').val(data.conn-name);
+          $('#api-query').val(data.api-query);
           $('#fetch_time').val(data.fetch_time);
           $('#blackorwhite').val(data.blackorwhite);
           $('#inlineRadioOptions').val(data.inlineRadioOptions);
           $('#conn_id').val(data.conn_id);
           $('#insert').val("Update");
+          $('#update_modal').modal("show");
 
 
         }

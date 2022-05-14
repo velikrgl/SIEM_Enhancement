@@ -10,159 +10,212 @@
 
 
     <section class="content">
-      <div class="row">
+      <!DOCTYPE html>
+      <html lang="en">
 
-        <div class="col-md-6">
-          <!-- Bar chart -->
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <i class="fa fa-bar-chart-o"></i>
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      </head>
 
-              <h3 class="box-title">Bar Chart</h3>
+      <body>
+        <div class="row">
 
+          <div class="col-md-6">
+            <!-- Bar chart -->
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <i class="fa fa-bar-chart-o"></i>
+
+                <h3 class="box-title">Bar Chart</h3>
+
+              </div>
+              <div class="box-body">
+                <canvas id="myChart" style="height :250px;"></canvas>
+              </div>
+              <!-- /.box-body-->
             </div>
-            <div class="box-body">
-              <canvas id="bar-chart" style="height :250px;"></canvas>
-            </div>
-            <!-- /.box-body-->
+            <!-- /.box -->
           </div>
-          <!-- /.box -->
-        </div>
 
-        <div class="col-md-6">
-          <div class="box box-danger">
-            <div class="box-header with-border">
-              <h3 class="box-title">Malicious Data</h3>
+          <div class="col-md-6">
+            <div class="box box-danger">
+              <div class="box-header with-border">
+                <h3 class="box-title">Malicious Data</h3>
+              </div>
+              <div class="box-body">
+                <canvas id="ipHash" style="height:250px"></canvas>
+              </div>
+              <!-- /.box-body -->
             </div>
-            <div class="box-body">
-              <canvas id="ipHash" style="height:250px"></canvas>
-            </div>
-            <!-- /.box-body -->
+            <!-- /.box -->
           </div>
-          <!-- /.box -->
         </div>
 
+        <script>
+          let myChart = document.getElementById('myChart').getContext('2d');
 
-        <div class="title">
-          <h3 style="margin-left: 20px;">Top 10 Countries - IP Reputation </h3>
-        </div>
-        <!-- Default box -->
-        <div class="box">
-          <div class="box-header with-border">
-            <table class="table table-striped">
-              <thead style="background-color: black; color: white; " class="thead-dark">
-                <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">Country</th>
-                  <th scope="col">City</th>
-                  <th scope="col">Count</th>
-                  <th scope="col">Block Status</th>
-                  <th scope="col">Scan Time</th>
-                </tr>
-              </thead>
+          // Global Options
+          Chart.defaults.global.defaultFontFamily = 'Lato';
+          Chart.defaults.global.defaultFontSize = 10;
+          Chart.defaults.global.defaultFontColor = '#777';
 
-              <?php
-
-              $conn = new mysqli('localhost', 'root', '', 'gradproj');
-              $sql = "SELECT id,country,city,COUNT(country) as number,blocked,scanned_time FROM `scanned_db` GROUP BY country ORDER BY number DESC LIMIT 0,10";
-
-
-              $result = $conn->query($sql);
-
-              //TOP-10-
-              //SELECT id,country,city,COUNT(country) as number,blocked,scanned_time FROM `scanned_db` GROUP BY country ORDER BY number DESC LIMIT 0,10;
-
-
-
-              if ($result->num_rows > 0) {
-                $id_count = 1;
-                while ($rows = $result->fetch_assoc()) {
-              ?>
-                  <tr>
-                    <!--FETCHING DATA FROM EACH 
-                    ROW OF EVERY COLUMN-->
-                    <td><?php echo $id_count++; ?></td>
-                    <td><?php echo $rows['country']; ?></td>
-                    <td><?php echo $rows['city']; ?></td>
-                    <td><?php echo $rows['number']; ?></td>
-                    <?php $status = $rows['blocked'];
-                    if ($status == 1) {
-                    ?>
-                      <td style="background-color: greenyellow;"> <?php echo "Blocked" ?></td>
-                    <?php
-                    } else { ?>
-                      <td style="background-color: red; color: white;"> <?php echo "NO Blocked" ?></td>
-                    <?php
-                    }
-                    ?>
-                    <td><?php echo $rows['scanned_time']; ?></td>
-
-                  </tr>
-              <?php
+          let massPopChart = new Chart(myChart, {
+            type: 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+            data: {
+              labels: ['January', 'February', 'March', 'April', 'May', 'June','July','August', 'September','October','November','December'],
+              datasets: [{
+                label: 'Scanned Data',
+                data: [
+                  617594,
+                  181045,
+                  153060,
+                  106519,
+                  105162,
+                  95072,
+                  617594,
+                  181045,
+                  153060,
+                  106519,
+                  105162,
+                  95072
+                ],
+                //backgroundColor:'green',
+                backgroundColor: [
+                  'rgba(255, 99, 132, 0.6)',
+                  'rgba(255, 99, 132, 0.6)',
+                  'rgba(255, 99, 132, 0.6)',
+                  'rgba(255, 99, 132, 0.6)',
+                  'rgba(255, 99, 132, 0.6)',
+                  'rgba(255, 99, 132, 0.6)',
+                  'rgba(255, 99, 132, 0.6)',
+                  'rgba(255, 99, 132, 0.6)',
+                  'rgba(255, 99, 132, 0.6)',
+                  'rgba(255, 99, 132, 0.6)',
+                  'rgba(255, 99, 132, 0.6)',
+                  'rgba(255, 99, 132, 0.6)'
+                ],
+                borderWidth: 1,
+                borderColor: '#777',
+                hoverBorderWidth: 3,
+                hoverBorderColor: '#000'
+              }]
+            },
+            options: {
+              title: {
+                display: true,
+                text: 'Scanned Sources',
+                fontSize: 12
+              },
+              legend: {
+                display: true,
+                position: 'right',
+                labels: {
+                  fontColor: '#000'
                 }
-              } else {
-                echo "No Result";
+              },
+              layout: {
+                padding: {
+                  left: 50,
+                  right: 0,
+                  bottom: 0,
+                  top: 0
+                }
+              },
+              tooltips: {
+                enabled: true
               }
+            }
+          });
+        </script>
+      </body>
 
-              ?>
+      </html>
 
 
 
-            </table>
-          </div>
+
+
+      <div class="title">
+        <h3 style="margin-left: 20px;">Top 10 Countries - IP Reputation </h3>
+      </div>
+      <!-- Default box -->
+      <div class="box">
+        <div class="box-header with-border">
+          <table class="table table-striped">
+            <thead style="background-color: black; color: white; " class="thead-dark">
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Country</th>
+                <th scope="col">City</th>
+                <th scope="col">Count</th>
+                <th scope="col">Block Status</th>
+                <th scope="col">Scan Time</th>
+              </tr>
+            </thead>
+
+            <?php
+
+            $conn = new mysqli('localhost', 'root', '', 'gradproj');
+            $sql = "SELECT id,country,city,COUNT(country) as number,blocked,scanned_time FROM `scanned_db` GROUP BY country ORDER BY number DESC LIMIT 0,10";
+
+
+            $result = $conn->query($sql);
+
+            //TOP-10-
+            //SELECT id,country,city,COUNT(country) as number,blocked,scanned_time FROM `scanned_db` GROUP BY country ORDER BY number DESC LIMIT 0,10;
+
+
+
+            if ($result->num_rows > 0) {
+              $id_count = 1;
+              while ($rows = $result->fetch_assoc()) {
+            ?>
+                <tr>
+                  <!--FETCHING DATA FROM EACH 
+                    ROW OF EVERY COLUMN-->
+                  <td><?php echo $id_count++; ?></td>
+                  <td><?php echo $rows['country']; ?></td>
+                  <td><?php echo $rows['city']; ?></td>
+                  <td><?php echo $rows['number']; ?></td>
+                  <?php $status = $rows['blocked'];
+                  if ($status == 1) {
+                  ?>
+                    <td style="background-color: greenyellow;"> <?php echo "Blocked" ?></td>
+                  <?php
+                  } else { ?>
+                    <td style="background-color: red; color: white;"> <?php echo "NO Blocked" ?></td>
+                  <?php
+                  }
+                  ?>
+                  <td><?php echo $rows['scanned_time']; ?></td>
+
+                </tr>
+            <?php
+              }
+            } else {
+              echo "No Result";
+            }
+
+            ?>
+
+
+
+          </table>
         </div>
+      </div>
     </section> <!-- /.content -->
   </div>
   <!-- ChartJS -->
   <script src="bower_components/chart.js/Chart.js"></script>
 
 
-  
+
   <script>
     window.onload = function() {
-
-      //-------------
-      //- PIE CHART -
-      //-------------
-      // Get context with jQuery - using jQuery's .get() method.
-      /*
-       * BAR CHART
-       * ---------
-       */
-      var bardataCanvas = $('#bar-chart').get(0).getContext('2d');
-      var barDataChart = new Chart(bardataCanvas);
-      var bar_data = {
-        data: [
-          ['January', 10],
-          ['February', 8],
-          ['March', 4],
-          ['April', 13],
-          ['May', 17],
-          ['June', 9]
-        ],
-        color: '#3c8dbc'
-      }
-      $.plot('#bar-chart', [bar_data], {
-        grid: {
-          borderWidth: 1,
-          borderColor: '#f3f3f3',
-          tickColor: '#f3f3f3'
-        },
-        series: {
-          bars: {
-            show: true,
-            barWidth: 0.5,
-            align: 'center'
-          }
-        },
-        xaxis: {
-          mode: 'categories',
-          tickLength: 0
-        }
-      })
-      /* END BAR CHART */
-
-
 
       var ipHashCanvas = $('#ipHash').get(0).getContext('2d');
       var ipHashChart = new Chart(ipHashCanvas);
@@ -214,7 +267,7 @@
       //Create pie or douhnut chart
       // You can switch between pie and douhnut using the method below.
 
-      barDataChart.Doughnut(bar_data, pieOptions);
+     
       ipHashChart.Doughnut(ipHashData, pieOptions);
 
 
