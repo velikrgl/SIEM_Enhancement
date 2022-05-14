@@ -134,7 +134,7 @@
             <div class="box-header with-border">
               <i class="fa fa-bar-chart-o"></i>
 
-              <h3 class="box-title">Bar Chart</h3>
+              <h3 class="box-title">Data Entries by Month</h3>
 
             </div>
             <div class="box-body">
@@ -151,117 +151,115 @@
             <div id="piechart" style="display: flex; float: right; width: 100%; height: 340px;"></div>
           </body>
 
-          
+
         </div>
 
       </div>
-    
+
       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-          <script type="text/javascript">
-            google.charts.load("current", {
-              packages: ["corechart"]
-            });
-            google.charts.setOnLoadCallback(drawChart);
+      <script type="text/javascript">
+        google.charts.load("current", {
+          packages: ["corechart"]
+        });
+        google.charts.setOnLoadCallback(drawChart);
 
-            function drawChart() {
-              var data = google.visualization.arrayToDataTable([
-                ['Data', 'Scanned'],
-                <?php
-                $sql = "SELECT COUNT(id) FROM scanned_db where  scanned_type=1 ;";
+        function drawChart() {
+          var data = google.visualization.arrayToDataTable([
+            ['Data', 'Scanned'],
+            <?php
+            $sql = "SELECT COUNT(id) FROM scanned_db where  scanned_type=1 ;";
 
-                $rows = dbQueryList($sql)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
-                $ip = $rows[0];
+            $rows = dbQueryList($sql)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
+            $ip = $rows[0];
 
-                $sql2 = "SELECT COUNT(id) FROM scanned_db where  scanned_type=2 ;";
-                $rows2 = dbQueryList($sql2)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
-                $hash = $rows2[0];
+            $sql2 = "SELECT COUNT(id) FROM scanned_db where  scanned_type=2 ;";
+            $rows2 = dbQueryList($sql2)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
+            $hash = $rows2[0];
 
-                $sql3 = "SELECT COUNT(id) FROM scanned_db where  scanned_type=3 ;";
-                $rows3 = dbQueryList($sql3)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
-                $url = $rows3[0];
-                ?>['IP', <?php echo $ip ?>],
-                ['HASH', <?php echo $hash ?>],
-                ['URL', <?php echo $url ?>],
+            $sql3 = "SELECT COUNT(id) FROM scanned_db where  scanned_type=3 ;";
+            $rows3 = dbQueryList($sql3)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
+            $url = $rows3[0];
+            ?>['IP', <?php echo $ip ?>],
+            ['HASH', <?php echo $hash ?>],
+            ['URL', <?php echo $url ?>],
 
-              ]);
+          ]);
 
-              var options = {
-                legend: 'none',
-                pieSliceText: 'label',
-                title: 'Scanned Data Distribution',
-                pieStartAngle: 100,
-              };
+          var options = {
+            legend: 'none',
+            pieSliceText: 'label',
+            title: 'Scanned Data Distribution',
+            pieStartAngle: 100,
+          };
 
-              var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-              chart.draw(data, options);
+          var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+          chart.draw(data, options);
+        }
+      </script>
+
+
+      <script>
+        let myChart = document.getElementById('myChart').getContext('2d');
+
+        // Global Options
+        Chart.defaults.global.defaultFontFamily = 'Lato';
+        Chart.defaults.global.defaultFontSize = 10;
+        Chart.defaults.global.defaultFontColor = '#777';
+
+        let massPopChart = new Chart(myChart, {
+          type: 'line', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+          data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            datasets: [{
+              label: 'Data Entries',
+              data: [
+                617594,
+                181045,
+                153060,
+                106519,
+                105162,
+                95072,
+                617594,
+                181045,
+                153060,
+                106519,
+                105162,
+                95072
+              ],
+              backgroundColor: 'green',
+
+              borderWidth: 1,
+              borderColor: '#777',
+              hoverBorderWidth: 3,
+              hoverBorderColor: '#000'
+            }]
+          },
+          options: {
+            title: {
+              display: true,
+              fontSize: 12
+            },
+            legend: {
+              display: true,
+              position: 'right',
+              labels: {
+                fontColor: '#000'
+              }
+            },
+            layout: {
+              padding: {
+                left: 50,
+                right: 0,
+                bottom: 0,
+                top: 0
+              }
+            },
+            tooltips: {
+              enabled: true
             }
-          </script>
-
-
-    <script>
-
-let myChart = document.getElementById('myChart').getContext('2d');
-
-// Global Options
-Chart.defaults.global.defaultFontFamily = 'Lato';
-Chart.defaults.global.defaultFontSize = 10;
-Chart.defaults.global.defaultFontColor = '#777';
-
-let massPopChart = new Chart(myChart, {
-  type: 'line', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
-  data: {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June','July','August', 'September','October','November','December'],
-    datasets: [{
-      label: 'Data Entries',
-      data: [
-        617594,
-        181045,
-        153060,
-        106519,
-        105162,
-        95072,
-        617594,
-        181045,
-        153060,
-        106519,
-        105162,
-        95072
-      ],
-      backgroundColor:'green',
-      
-      borderWidth: 1,
-      borderColor: '#777',
-      hoverBorderWidth: 3,
-      hoverBorderColor: '#000'
-    }]
-  },
-  options: {
-    title: {
-      display: true,
-      text: 'Data Entries by Month',
-      fontSize: 12
-    },
-    legend: {
-      display: true,
-      position: 'right',
-      labels: {
-        fontColor: '#000'
-      }
-    },
-    layout: {
-      padding: {
-        left: 50,
-        right: 0,
-        bottom: 0,
-        top: 0
-      }
-    },
-    tooltips: {
-      enabled: true
-    }
-  }
-});
-    </script>
+          }
+        });
+      </script>
 
 
   </section>
