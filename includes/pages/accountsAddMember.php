@@ -15,10 +15,17 @@ $dMessageType = "";
                 $dMessage = "Staff Successfully Organized.";
                 $dMessageType = "callout-success";  
             }  else {
-                $dMessage = "An error occurred while Editing Staff.".$query[1][2];
+                $dMessage = "An error occurred while Editing Staff.";
                 $dMessageType = "callout-danger";  
             }
         } else {
+
+
+          $uyeKontrol = "SELECT count(id) as ct from accounts WHERE username = '".$_POST['username']."' or email = '".$_POST['email']."';";
+          $uyeKontrol_ = dbQueryList($uyeKontrol)->fetch(PDO::FETCH_ASSOC);
+
+          if($uyeKontrol_['ct'] == 0) {
+
 
             $query = dbQuery("INSERT INTO accounts (username,name,surname,password,email,authorization) values('".$_POST['username']."','".$_POST['name']."','".$_POST['surname']."','".md5($_POST['password'])."','".$_POST['email']."','".$_POST['authorization']."' );");
 
@@ -27,11 +34,14 @@ $dMessageType = "";
                 $dMessage = "Staff Added Successfully.";
                 $dMessageType = "callout-success"; 
             }  else {
-                $dMessage = "An error occurred while adding staff.".$query[1][2];
+                $dMessage = "An error occurred while adding staff.";
                 $dMessageType = "callout-danger"; 
             }
 
-       
+          }  else {
+            $dMessage = "Username or email address already exists!";
+            $dMessageType = "callout-danger"; 
+        }
 
         }
   }
