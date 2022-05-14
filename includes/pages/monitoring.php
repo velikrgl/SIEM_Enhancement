@@ -30,7 +30,7 @@
               <div class="box-header with-border">
                 <i class="fa fa-bar-chart-o"></i>
 
-                <h3 class="box-title">Bar Chart</h3>
+                <h3 class="box-title">Scanned Data</h3>
 
               </div>
               <div class="box-body">
@@ -107,7 +107,7 @@
             options: {
               title: {
                 display: true,
-                text: 'Scanned Sources',
+               
                 fontSize: 12
               },
               legend: {

@@ -150,9 +150,46 @@
           <body>
             <div id="piechart" style="display: flex; float: right; width: 100%; height: 340px;"></div>
           </body>
-
-
         </div>
+
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <i class="fa fa-bar-chart-o"></i>
+
+              <h3 class="box-title">Incoming Logs</h3>
+
+            </div>
+            <div class="box-body">
+              <canvas id="incomingLog" style="height :250px; "></canvas>
+            </div>
+            <!-- /.box-body-->
+          </div>
+          <!-- /.box -->
+        </div>
+
+        <div class="col-md-6">
+
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <i class="fa fa-bar-chart-o"></i>
+
+              <h3 class="box-title">Black & White List</h3>
+
+            </div>
+            <div class="box-body">
+              <canvas id="blackwhite" style="height :250px; "></canvas>
+            </div>
+            <!-- /.box-body-->
+          </div>
+          <!-- /.box -->
+        </div>
+
 
       </div>
 
@@ -229,6 +266,117 @@
               backgroundColor: 'green',
 
               borderWidth: 1,
+              borderColor: '#777',
+              hoverBorderWidth: 3,
+              hoverBorderColor: '#000'
+            }]
+          },
+          options: {
+            title: {
+              display: true,
+              fontSize: 12
+            },
+            legend: {
+              display: true,
+              position: 'right',
+              labels: {
+                fontColor: '#000'
+              }
+            },
+            layout: {
+              padding: {
+                left: 50,
+                right: 0,
+                bottom: 0,
+                top: 0
+              }
+            },
+            tooltips: {
+              enabled: true
+            }
+          }
+        });
+
+
+        let incomingLogs = document.getElementById('incomingLog').getContext('2d');
+
+
+        let massPopChart3 = new Chart(incomingLogs, {
+          type: 'line', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+          data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            datasets: [{
+              label: 'Data Entries',
+              data: [
+                217594,
+                481045,
+                253060,
+                406519,
+                305162,
+                150722,
+                317594,
+                481045,
+                753060,
+                306519,
+                305162,
+                75072
+              ],
+              backgroundColor: '#cd2626',
+
+              borderWidth: 1,
+              borderColor: '#777',
+              hoverBorderWidth: 3,
+              hoverBorderColor: '#000'
+            }]
+          },
+          options: {
+            title: {
+              display: true,
+              fontSize: 12
+            },
+            legend: {
+              display: true,
+              position: 'right',
+              labels: {
+                fontColor: '#000'
+              }
+            },
+            layout: {
+              padding: {
+                left: 50,
+                right: 0,
+                bottom: 0,
+                top: 0
+              }
+            },
+            tooltips: {
+              enabled: true
+            }
+          }
+        });
+
+
+        let blackwhite = document.getElementById('blackwhite').getContext('2d');
+
+        let massPopChart4 = new Chart(blackwhite, {
+          type: 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+          data: {
+            labels: ['Black', 'White'],
+            datasets: [{
+              label: 'Data ',
+              data: [
+                
+                517594,
+                80594,
+                80594
+                
+              ],
+              backgroundColor:[
+            'rgba(0, 0, 0, 1)',
+            'rgba(255, 255, 255, 1)'
+          ],
+
+              borderWidth: 3,
               borderColor: '#777',
               hoverBorderWidth: 3,
               hoverBorderColor: '#000'
