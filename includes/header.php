@@ -32,7 +32,9 @@
   <script src="plugins//html5shiv.min.js"></script>
   <script src="plugins//respond.min.js"></script>
   <![endif]-->
-
+  <script type="text/javascript" src="plugins/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" src="bower_components/sweetalert2/sweetalert2.all.min.js"></script>
+  
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
