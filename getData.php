@@ -31,9 +31,21 @@ $primaryKey = 'id';
 $columns = array(
     array( 'db' => 'scanned_source', 'dt' => 0 ),
     array( 'db' => 'scanned_time', 'dt' => 1 ),
-    array( 'db' => 'status', 'dt' => 2 ),
+    array( 'db' => 'status', 'dt' => 2 ,
+    'formatter' => function( $d, $row ) {
+        if($d == 1) $mes ='<span class="text-danger">Black List</span>';
+        else  $mes ='<span class="text-success">White List</span>';
+
+        return $mes;
+    }),
     array( 'db' => 'which_api_src', 'dt' => 3 ),
-    array( 'db' => 'blocked', 'dt' => 4 ),
+    array( 'db' => 'blocked', 'dt' => 4 ,
+    'formatter' => function( $d, $row ) {
+        if($d == 0) $mes ='<span>notblock</span>';
+        else  $mes ='<span>block</span>';
+
+        return $mes;
+    }),
     array( 'db' => 'country', 'dt' => 5 ),
     array( 'db' => 'city', 'dt' => 6 ),
 );
