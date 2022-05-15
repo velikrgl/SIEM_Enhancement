@@ -335,7 +335,7 @@
       </span>
     </a>
     <ul class="treeview-menu">
-      <li <?=(isset($_GET['page']) && $_GET['page'] == 'generalAddDatabase' )?'class="active"':'';?> ><a href="admin.php?page=generalAddDatabase"><i class="fa fa-circle-o"></i> Add Database</a></li>
+      <li <?=(isset($_GET['page']) && $_GET['page'] == 'generalAddDatabase' )?'class="active"':'';?> ><a href="admin.php?page=generalAddDatabase"><i class="fa fa-circle-o"></i> Add Connections</a></li>
       <li <?=(isset($_GET['page']) && $_GET['page'] == 'generalListDatabase' )?'class="active"':'';?>><a href="admin.php?page=generalListDatabase"><i class="fa fa-circle-o"></i>List Database</a></li>
       <li <?=(isset($_GET['page']) && $_GET['page'] == 'generalDatabaseStatus' )?'class="active"':'';?>><a href="admin.php?page=generalDatabaseStatus"><i class="fa fa-circle-o"></i>Database Status</a></li>
     </ul>

@@ -85,7 +85,7 @@ if (isset($_POST['addDatabase_white'])) {
 
   <section class="content-header">
     <h1>
-      Add Database
+      Add Connections
     </h1>
   </section> <!-- Main content -->
 

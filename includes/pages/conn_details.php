@@ -15,6 +15,19 @@ if(isset($_POST["con_name"]))
 
             while ($rows = $result->fetch_assoc()) {
     
+                if($rows["status"]==1){
+                    $rows["status"]="Active";
+                }
+                else{
+                    $rows["status"] ="No Active";
+                }
+
+                if($rows["blackOrWhite"]==1){
+                    $rows["blackOrWhite"]="Black List";
+                }
+                else{
+                    $rows["blackOrWhite"] ="White List";
+                }
                  $output.='
 
                 <tr>
