@@ -15,6 +15,17 @@ function dbQuery($q){
 
 }
 
+function dbQueryLastId($q){
+
+     $dbh  = new PDO('mysql:dbname='.DB_DB.';charset=UTF8;host='.DB_HOST.';port='.DB_PORT,DB_USER,DB_PASS);
+     $sql=$dbh->query($q);
+     //$dbh->exec($sql);
+     $last_id = $dbh->lastInsertId();
+
+     if($sql) return "ok:".$last_id; else return "hata:".$sql->errorInfo();
+
+}
+
 
 function dbPrepare($q,$e){
      $dbh  = new PDO('mysql:dbname='.DB_DB.';charset=UTF8;host='.DB_HOST.';port='.DB_PORT,DB_USER,DB_PASS);

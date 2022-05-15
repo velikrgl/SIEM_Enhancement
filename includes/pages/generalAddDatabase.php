@@ -1,3 +1,5 @@
+<script>datas= "";addListSrat = 0;</script>
+
 <?php
 
 if (isset($_POST['addDatabase_black'])) {
@@ -10,26 +12,20 @@ if (isset($_POST['addDatabase_black'])) {
   $t = time();
   $time = (date("Y-m-d", $t));
 
-
-  $query = dbQuery("INSERT INTO connections (connection_name,api_query,fetch_time,blackOrWhite,createdTime,userwhocreated,creationReason,status) VALUES ('$conName','$url_external','$refresh_rate','1','$time','admin','$creation_reason','1')");
+  $query = dbQueryLastId("INSERT INTO connections (connection_name,api_query,fetch_time,blackOrWhite,createdTime,userwhocreated,creationReason,status) VALUES ('$conName','$url_external','$refresh_rate','1','$time','$Y_user','$creation_reason','1')");
 
   $query = explode(":",$query);
   if($query[0] == "ok") {
 
-
+    $lastID = $query[1] ;
+    
     $urlFile = $url_external;
-    $lines2 = file_get_contents($urlFile);
-    $lines = explode("\n", $lines2);
-
+    $lines = file($urlFile);
+    $lines = str_replace("\n","",$lines);
 
     $i=0;
-/*
-    foreach($lines as $data){
-      $query = dbQuery("INSERT INTO db_status (ip_hash_url,info_type,type) VALUES ('$data','2','uriDataChech($data)')");
-     $i++;
-    }*/
 
-    echo '<script>var datas = "'.implode($lines,",").'"; addList = 1; Swal.fire("Success", "Black connection added successfully and '.$i.' datas add database", "success"); </script>';
+    echo '<script>var datas = "'.implode($lines,",").'"; uriType=1; uriConnectID="'.$lastID .'";  addListSrat = 1; Swal.fire("Success", "Black connection added successfully and '.$i.' datas add database", "success"); </script>';
   }  else {
     echo '<script>Swal.fire("errror", "Wrogn!", "danger"); </script>';
   }
@@ -51,22 +47,21 @@ if (isset($_POST['addDatabase_white'])) {
   $t = time();
   $time = (date("Y-m-d", $t));
 
-  $query = dbQuery("INSERT INTO connections (connection_name,api_query,fetch_time,blackOrWhite,createdTime,userwhocreated,creationReason,status) VALUES ('$conName','$url_external','$refresh_rate','0','$time','admin','$creation_reason','1')");
+  $query = dbQueryLastId("INSERT INTO connections (connection_name,api_query,fetch_time,blackOrWhite,createdTime,userwhocreated,creationReason,status) VALUES ('$conName','$url_external','$refresh_rate','2','$time','$Y_user','$creation_reason','1')");
 
   $query = explode(":",$query);
   if($query[0] == "ok") {
+
+    $lastID = $query[1] ;
     
     $urlFile = $url_external;
     $lines = file($urlFile);
+    $lines = str_replace("\n","",$lines);
+
 
     $i=0;
 
-    foreach($lines as $data){
-      $query = dbQuery("INSERT INTO db_status (ip_hash_url,info_type,type) VALUES ('$data','1','uriDataChech($data)')");
-     $i++;
-    }
-
-    echo '<script>var datas = "'.implode($lines,",").'"; addList = 1; Swal.fire("Success", "White connection added successfully and '.$i.' datas add database", "success"); </script>';
+    echo '<script>var datas = "'.implode($lines,",").'";  uriType=2; uriConnectID="'.$lastID .'";  addListSrat = 1; Swal.fire("Success", "White connection added successfully and '.$i.' datas add database", "success"); </script>';
   }  else {
     echo '<script>Swal.fire("errror", "Wrogn!", "danger"); </script>';
   }
@@ -163,14 +158,11 @@ if (isset($_POST['addDatabase_white'])) {
 
 
   <section class="content">
-
-    <div style="width=100%;">
-        <span id="ipNum">0</span>
-        <span id="URLNum">0</span>
-        <span id="HASHNum">0</span>
+    <div>
+      <button id="startStopButton" onclick="javascript:ssButton();" style="display:none;" class="btn btn-primary">STOP</button>
     </div>
 
-    <div style="height:300px; width:100%;overflow: auto;background-color: #fff;padding: 20px;" id="dataLog">
+    <div style="height:300px; width:100%;overflow: auto;background-color: #fff;padding: 20px; clear=both;" id="dataLog">
     </div>
 
   </section>
@@ -180,36 +172,38 @@ if (isset($_POST['addDatabase_white'])) {
 </div>
 
 <script>
-datasSplit =  datas.split(",");
+
+ 
+
+if(datas != "") datasSplit =  datas.split(",");
 dNum = 0;
 ipNum = 0;
 URLNum = 0;
 HASHNum = 0;
 
-if(addList == 1){ addData(datasSplit[dNum]); }
+if(addListSrat == 1){ addData(datasSplit[dNum]);  $("#startStopButton").show(); }
+
+function ssButton(){ 
+  if(addListSrat == 1) {
+    addListSrat = 0;
+    $("#startStopButton").html("START");
+  } else {
+    addListSrat = 1;
+    $("#startStopButton").html("STOP");
+    addData(datasSplit[dNum]);
+  }
+}
 
 function addData(uri){
-        if(uri != "") {
+        if(uri != "" && addListSrat == 1) {
                $.ajax({
                         type: "GET",
-                      url: 'admin.php?add=uri&uri='+uri,
+                      url: 'admin.php?add=uri&uri='+uri+'&uriType='+uriType+'&conID='+uriConnectID,
                         showLoaderOnConfirm: true,
                         success: function( result ) {
-                            $("#dataLog").append("<p>"+result[0]+"</p>");
+                            $("#dataLog").append("<p>"+result+"</p>");
                             $( "#dataLog" ).scrollTop( $('#dataLog').prop("scrollHeight") );
-                            if(result[1] == 1) {
-                              ipNum++; 
-                              $("#ipNum").html(ipNum);
-                            }else if (result[1] == 2) {
-                              URLNum++;
-                              $("#URLNum").html(URLNum);
-                            } else{ 
-                              HASHNum++;
-                              $("#HASHNum").html(HASHNum);
-                            }
-
                             dNum++;
-
                             if(dNum < datas.length){
                               addData(datasSplit[dNum]);
                             } else {
