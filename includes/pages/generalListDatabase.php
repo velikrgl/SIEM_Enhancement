@@ -19,9 +19,11 @@ else if(isset($_GET['filter']) && $_GET['filter'] == 3) { $filter = "ALL";  $fNu
       </h1>
       <br /><br />
       <div class="btn-group">
-          <a href="admin.php?page=generalListDatabase&filter=4" type="button" <?= ( (isset($_GET['filter']) && $_GET['filter'] == 3) || !isset($_GET['filter']) )?'class="btn btn-danger"':'class="btn btn-default"';?>>ALL</a>
-          <a href="admin.php?page=generalListDatabase&filter=1" type="button" <?= (isset($_GET['filter']) && $_GET['filter'] == 1)?'class="btn btn-danger"':'class="btn btn-default"';?> >White List</a>
-          <a href="admin.php?page=generalListDatabase&filter=2" type="button" <?= (isset($_GET['filter']) && $_GET['filter'] == 2)?'class="btn btn-danger"':'class="btn btn-default"';?>>Black List</a>
+          <a href="admin.php?page=generalListDatabase&filter=4" type="button" <?= ( (isset($_GET['filter']) && $_GET['filter'] == 4) || !isset($_GET['filter']) )?'class="btn btn-danger"':'class="btn btn-default"';?>>ALL</a>
+          <a href="admin.php?page=generalListDatabase&filter=1" type="button" <?= (isset($_GET['filter']) && $_GET['filter'] == 1)?'class="btn btn-danger"':'class="btn btn-default"';?> >IP</a>
+          <a href="admin.php?page=generalListDatabase&filter=2" type="button" <?= (isset($_GET['filter']) && $_GET['filter'] == 2)?'class="btn btn-danger"':'class="btn btn-default"';?>>HASH</a>
+          <a href="admin.php?page=generalListDatabase&filter=3" type="button" <?= (isset($_GET['filter']) && $_GET['filter'] == 3)?'class="btn btn-danger"':'class="btn btn-default"';?>>URL</a>
+
       </div>
 
     </section>    <!-- Main content -->
@@ -48,11 +50,8 @@ else if(isset($_GET['filter']) && $_GET['filter'] == 3) { $filter = "ALL";  $fNu
                                     <thead class="thead-dark">
                                         <tr>
                                             <th>ID</th>
-                                            <th>Black Or White</th>
-                                            <th>Connection Name</th>
-                                            <th>Api Query</th>
-                                            <th>Fetch Time</th>
-                                            <th>Status</th>
+                                            <th><?php echo $filter; ?></th>
+                                            <th>Black / White</th>
                                         </tr>
                                     </thead>
                                       
