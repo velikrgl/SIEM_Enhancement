@@ -11,6 +11,21 @@ if(isset($_GET['act']) and $_GET['act']== "delete") {
     }
 }
 
+if(isset($_GET['add']) and $_GET['add']== "uri") {
+    $data = $_GET['uri'];
+    $type = uriDataChech($data);
+    $query = dbQuery("INSERT INTO db_status (ip_hash_url,info_type,type) VALUES ('$data','1','$type') ON DUPLICATE KEY UPDATE
+    subs_name     = VALUES(subs_name),
+    subs_birthday = VALUES(subs_birthday)");
+    $datas[0] = $data;
+    $datas[1] = uriDataChech($data);
+
+    die($datas);
+
+}
+
+
+
 
 include("includes/header.php");
 
