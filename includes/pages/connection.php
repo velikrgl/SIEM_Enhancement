@@ -153,7 +153,7 @@ $result = $conn->query($sql);
           </div>
           <br />
           <input type="hidden" name="conn_id" id="conn_id" />
-          <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-success" />
+          <input type="submit" name="insert" id="insert" value="Update" class="btn btn-success" />
           </form>
         </div>
       </div>
@@ -165,6 +165,7 @@ $result = $conn->query($sql);
   $(document).ready(function() {
     $(document).on('click', '.update-conn', function() {
       var conn_id = $(this).attr("id");
+      $('#update_modal').modal("show");
 
       $.ajax({
         url: "includes/pages/update_connections.php",
@@ -186,7 +187,7 @@ $result = $conn->query($sql);
           $('#inlineRadioOptions').val(data.inlineRadioOptions);
           $('#conn_id').val(data.conn_id);
           $('#insert').val("Update");
-          $('#update_modal').modal("show");
+        
 
 
         }
