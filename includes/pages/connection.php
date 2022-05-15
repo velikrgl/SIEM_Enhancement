@@ -6,12 +6,11 @@
 if (isset($_POST['delete-conn'])) {
 $id = $_POST['delete-conn'];
 
-$conn = new mysqli('localhost', 'root', '', 'gradproj');
-
+//$conn = new mysqli('localhost', 'root', '', 'gradproj');
 
 $sql = "DELETE FROM connections WHERE id=$id";
+$result =dbQueryList($sql);
 
-$result = $conn->query($sql);
 
 
 //sweet alert needs to be use 
