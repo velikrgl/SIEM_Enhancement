@@ -1,12 +1,17 @@
 <?php
 
-$sql = "SELECT COUNT(id) FROM db_status WHERE type = 1;"; //ip
-$sql2 = "SELECT COUNT(id) FROM db_status WHERE type = 2;"; //hash
-$sql3 = "SELECT COUNT(id) FROM db_status WHERE type = 3;"; //url info
+$sql = "SELECT COUNT(id) FROM db_status WHERE info_type = 1;"; //ip
+$sql2 = "SELECT COUNT(id) FROM db_status WHERE info_type = 2;"; //hash
+$sql3 = "SELECT COUNT(id) FROM db_status WHERE info_type = 3;"; //url info
+$totalDBSize = 100; //MB
+$currentDBSizeSQl = 'SELECT SUM(ROUND(((data_length + index_length) / 1024 / 1024), 2)) AS size FROM information_schema.TABLES WHERE table_schema = "gradproj" LIMIT 1;';
+
+
 
 $rows = dbQueryList($sql)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
 $rows2 = dbQueryList($sql2)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
 $rows3 = dbQueryList($sql3)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
+$currentDBSize = dbQueryList($currentDBSizeSQl)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
 
 
 ?>
@@ -168,7 +173,7 @@ $rows3 = dbQueryList($sql3)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
               datasets: [{
                 label: 'Data-%',
                 data: [
-                  45,
+                  <?php echo $currentDBSize[0]; ?>,
                   10,
                   20,
                   30,
