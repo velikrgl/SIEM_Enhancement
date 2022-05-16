@@ -19,7 +19,7 @@ if (isset($_POST['addDatabase_black'])) {
 
     $lastID = $query[1] ;
     
-    $urlFile = "url-list.txt";
+    $urlFile = $url_external;
     $lines = file($urlFile);
     $lines = str_replace("\n","",$lines);
 
@@ -54,7 +54,7 @@ if (isset($_POST['addDatabase_white'])) {
 
     $lastID = $query[1] ;
     
-    $urlFile = "url-list.txt";
+    $urlFile = $url_external;
     $lines = file($urlFile);
     $lines = str_replace("\n","",$lines);
 
