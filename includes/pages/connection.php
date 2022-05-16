@@ -96,6 +96,7 @@ $result =dbQueryList($sql);
                 <td><?php echo $rows['userwhocreated']; ?></td>
                 <td><?php echo $rows['createdTime']; ?></td>
                 <td><button  type="submit" data-id="<?php echo $rows['id'];?>" class="btn btn-primary update-conn">Edit</button></td>
+                
                <!-- Edit Button-->
                 <form action="admin.php?page=connection" method="POST">
                   <td><button value="<?php echo $rows['id']; ?>" name="delete-conn" type="submit" class="btn btn-primary delete-conn">Delete</button></td>

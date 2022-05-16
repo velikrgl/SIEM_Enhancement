@@ -57,3 +57,15 @@ $response ="";
  echo $response;
 
 }
+
+if(isset($_POST['insert'])){
+
+    $connection_name = $_POST['conn-name'];
+    $api =$_POST['api-query'];
+    $fetch_time=$_POST['fetch_time'];
+    $borwhite= $_POST['blackorwhite'];
+    $status =$_POST['inlineRadioOptions'];
+
+   $sql= "UPDATE  connections  SET  connection_name ='$connection_name', api_query ='$api', fetch_time ='$fetch_time', blackOrWhite ='$borwhite', '', userwhocreated ='', creationReason ='', status ='$status' WHERE id='$conn_id_test' ";
+   $result = $conn->query($sql);
+}
