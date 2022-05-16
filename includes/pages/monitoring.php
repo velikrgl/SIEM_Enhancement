@@ -1,3 +1,18 @@
+<?php
+
+$sql = "SELECT COUNT(id) FROM scanned_db WHERE scanned_type = 1;"; //ip
+$sql2 = "SELECT COUNT(id) FROM scanned_db WHERE scanned_type = 2;"; //hash
+$sql3 = "SELECT COUNT(id) FROM scanned_db WHERE scanned_type = 3;"; //url info
+
+
+
+$ctTows = dbQueryList($sql)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
+$ctTows2 = dbQueryList($sql2)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
+$ctTows3 = dbQueryList($sql3)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
+
+
+?>
+  
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -220,19 +235,19 @@
       var ipHashCanvas = $('#ipHash').get(0).getContext('2d');
       var ipHashChart = new Chart(ipHashCanvas);
       var ipHashData = [{
-          value: 120,
+          value: <?php echo $ctTows[0]; ?>,
           color: '#f56954',
           highlight: '#f56954',
           label: 'ip'
         },
         {
-          value: 60,
+          value: <?php echo $ctTows2[0]; ?>,
           color: '#00a65a',
           highlight: '#00a65a',
           label: 'hash'
         },
         {
-          value: 180,
+          value: <?php echo $ctTows3[0]; ?>,
           color: '#3c8dbc',
           highlight: '#3c8dbc',
           label: 'url'

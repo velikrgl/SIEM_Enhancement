@@ -7,6 +7,7 @@ if(isset($_POST["con_name"]))
     $sql = "SELECT * FROM  connections WHERE connection_name = '".$_POST["con_name"]."' "; 
 
     $result = $conn->query($sql);
+    
 
     $output.='
     <div class="table-responsive">
