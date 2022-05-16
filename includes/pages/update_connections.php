@@ -57,7 +57,7 @@ $response ="";
  echo $response;
 
 }
-
+//Update part need to be fixed
 if(isset($_POST['insert'])){
 
     $connection_name = $_POST['conn-name'];
