@@ -70,8 +70,8 @@ $result =dbQueryList($sql);
               <tr>
                 <!--FETCHING DATA FROM EACH 
                     ROW OF EVERY COLUMN-->
-                <td><?php echo $rows['id']; ?></td>
-                <td><?php echo $rows['connection_name']; ?></td>
+                <td ><?php echo $rows['id']; ?></td>
+                <td id="connection_name_table" ><?php echo $rows['connection_name']; ?></td>
                 <?php $status = $rows['status'];
                 if ($status == 1) {
                 ?>
@@ -95,7 +95,7 @@ $result =dbQueryList($sql);
                 ?>
                 <td><?php echo $rows['userwhocreated']; ?></td>
                 <td><?php echo $rows['createdTime']; ?></td>
-                <td><button id="<?php echo $rows['id']; ?>" type="submit" class="btn btn-primary update-conn">Edit</button></td>
+                <td><button  type="submit" data-id="<?php echo $rows['id'];?>" class="btn btn-primary update-conn">Edit</button></td>
                <!-- Edit Button-->
                 <form action="admin.php?page=connection" method="POST">
                   <td><button value="<?php echo $rows['id']; ?>" name="delete-conn" type="submit" class="btn btn-primary delete-conn">Delete</button></td>
@@ -123,9 +123,9 @@ $result =dbQueryList($sql);
           </div>
           <div id="modal-body-info" class="modal-body">
 
-            <form method="post" id="insert_form">
+            <!-- <form method="post" id="insert_form">
               <label>Connection Name</label>
-              <input type="text" name="conn-name" id="conn-name" class="form-control" />
+              <input type="text" name="conn-name" id="Mconn_name" class="form-control" />
               <br />
               <label>Api Query</label>
               <input type="text" name="api-query" id="api-query" class="form-control" />
@@ -153,50 +153,54 @@ $result =dbQueryList($sql);
           <br />
           <input type="hidden" name="conn_id" id="conn_id" />
           <input type="submit" name="insert" id="insert" value="Update" class="btn btn-success" />
-          </form>
+          </form> -->
         </div>
       </div>
     </div>
 </div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-<script>
+<!-- <script>
   $(document).ready(function() {
     $(document).on('click', '.update-conn', function() {
-      var conn_id = $(this).attr("id");
-      $('#update_modal').modal("show");
 
-      $.ajax({
-        url: "includes/pages/update_connections.php",
-        method: "POST",
-        data: {
-          conn_id: conn_id
-        },
-        dataType: "json",
-        success: function(data) {
+  var con_name= $('#connection_name_table').text();
+  
+  $('#update_modal').modal("show");
+  $('#Mconn_name').val(con_name);
+      
 
-          $('#modal-body-info').html(response);
-         
-
-          console.log("success");
-          $('#conn-name').val(data.conn-name);
-          $('#api-query').val(data.api-query);
-          $('#fetch_time').val(data.fetch_time);
-          $('#blackorwhite').val(data.blackorwhite);
-          $('#inlineRadioOptions').val(data.inlineRadioOptions);
-          $('#conn_id').val(data.conn_id);
-          $('#insert').val("Update");
-        
-
-
-        }
-
-
-      });
-    });
+ 
+});
 
 
   });
+</script> -->
+
+<script>
+
+$(document).ready(function(){
+
+$('.update-conn').click(function(){
+  
+  var conn_id = $(this).data('id');
+ 
+  // AJAX request
+  $.ajax({
+   url: 'http://localhost/SIEM_Enhancement/includes/pages/update_connections.php',
+   type: 'get',
+  
+   data: {conn_id: conn_id},
+   success: function(response){ 
+     // Add response in Modal body
+     $('.modal-body').html(response);
+
+     // Display Modal
+     $('#update_modal').modal('show'); 
+   }
+ });
+});
+});
 </script>
 
 </section> <!-- /.content -->
