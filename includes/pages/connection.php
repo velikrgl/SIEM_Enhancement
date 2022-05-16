@@ -122,60 +122,13 @@ $result =dbQueryList($sql);
             <h4 class="modal-title">Update Connection</h4>
           </div>
           <div id="modal-body-info" class="modal-body">
-
-            <!-- <form method="post" id="insert_form">
-              <label>Connection Name</label>
-              <input type="text" name="conn-name" id="Mconn_name" class="form-control" />
-              <br />
-              <label>Api Query</label>
-              <input type="text" name="api-query" id="api-query" class="form-control" />
-              <br />
-              <label>Fetch Time</label>
-              <input type="text" name="fetch_time" id="fetch_time" class="form-control" />
-              <br />
-              <label>BlackOrWhite</label>
-              <select name="blackorwhite" id="blackorwhite" class="form-control">
-                <option value="Black">Black</option>
-                <option value="White">White</option>
-              </select>
-              <br />
-
-              <div class="form-check form-check-inline">
-                <label>Status:</label>
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadioOptions" value="status-on" />
-                <label class="form-check-label" for="inlineRadio1">ON</label>
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadioOptions" value="status-off" />
-                <label class="form-check-label" for="inlineRadio2">OFF</label>
-              </div>
-
-
-          </div>
-          <br />
-          <input type="hidden" name="conn_id" id="conn_id" />
-          <input type="submit" name="insert" id="insert" value="Update" class="btn btn-success" />
-          </form> -->
         </div>
       </div>
     </div>
 </div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-<!-- <script>
-  $(document).ready(function() {
-    $(document).on('click', '.update-conn', function() {
 
-  var con_name= $('#connection_name_table').text();
-  
-  $('#update_modal').modal("show");
-  $('#Mconn_name').val(con_name);
-      
-
- 
-});
-
-
-  });
-</script> -->
 
 <script>
 
@@ -187,7 +140,7 @@ $('.update-conn').click(function(){
  
   // AJAX request
   $.ajax({
-   url: 'http://localhost/SIEM_Enhancement/includes/pages/update_connections.php',
+   url: 'includes/pages/update_connections.php',
    type: 'get',
   
    data: {conn_id: conn_id},
