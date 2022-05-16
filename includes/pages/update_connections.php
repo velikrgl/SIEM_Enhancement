@@ -31,7 +31,7 @@ if(isset($conn_id_test))
 
 $response ="";
 
-    $response="<form method='post' id='insert_form'>";
+    $response="<form method='post' action='admin.php?page=connection'>";
     $response.="<label>Connection Name</label>";
     $response.="<input type='text' name='conn-name' id='Mconn_name' value='".$row['connection_name']."' class='form-control' /><br />";
     $response.="<label>Api Query</label>";
@@ -59,13 +59,16 @@ $response ="";
 }
 //Update part need to be fixed
 if(isset($_POST['insert'])){
-
+   
     $connection_name = $_POST['conn-name'];
     $api =$_POST['api-query'];
     $fetch_time=$_POST['fetch_time'];
     $borwhite= $_POST['blackorwhite'];
     $status =$_POST['inlineRadioOptions'];
 
-   $sql= "UPDATE  connections  SET  connection_name ='$connection_name', api_query ='$api', fetch_time ='$fetch_time', blackOrWhite ='$borwhite', '', userwhocreated ='', creationReason ='', status ='$status' WHERE id='$conn_id_test' ";
+   $sql= "UPDATE  connections SET connection_name ='$connection_name', api_query ='$api', fetch_time ='$fetch_time', blackOrWhite ='$borwhite', '', userwhocreated ='', creationReason ='', status ='$status' WHERE id='$conn_id_test' ";
    $result = $conn->query($sql);
+
+
+   
 }

@@ -4,24 +4,11 @@
 <?php
 
 if (isset($_POST['delete-conn'])) {
-$id = $_POST['delete-conn'];
+  $id = $_POST['delete-conn'];
 
-//$conn = new mysqli('localhost', 'root', '', 'gradproj');
-
-$sql = "DELETE FROM connections WHERE id=$id";
-$result =dbQueryList($sql);
-
-
-
-//sweet alert needs to be use 
-  
- 
-  
-
-  // Burdan sonra connections tabına yönlenecek
-
-  //redirecLink("admin.php?page=connection");
-
+  echo "<script> conn_id =" . $id . ";</script>";
+} else {
+  echo "<script> conn_id = 0;</script>";
 }
 
 ?>
@@ -58,8 +45,8 @@ $result =dbQueryList($sql);
           <?php
 
 
-        $sql = "SELECT * FROM  connections";
-        $result =dbQueryList($sql);
+          $sql = "SELECT * FROM  connections";
+          $result = dbQueryList($sql);
 
 
 
@@ -70,8 +57,8 @@ $result =dbQueryList($sql);
               <tr>
                 <!--FETCHING DATA FROM EACH 
                     ROW OF EVERY COLUMN-->
-                <td ><?php echo $rows['id']; ?></td>
-                <td id="connection_name_table" ><?php echo $rows['connection_name']; ?></td>
+                <td><?php echo $rows['id']; ?></td>
+                <td id="connection_name_table"><?php echo $rows['connection_name']; ?></td>
                 <?php $status = $rows['status'];
                 if ($status == 1) {
                 ?>
@@ -95,13 +82,13 @@ $result =dbQueryList($sql);
                 ?>
                 <td><?php echo $rows['userwhocreated']; ?></td>
                 <td><?php echo $rows['createdTime']; ?></td>
-                <td><button  type="submit" data-id="<?php echo $rows['id'];?>" class="btn btn-primary update-conn">Edit</button></td>
-                
-               <!-- Edit Button-->
+                <td><button type="submit" data-id="<?php echo $rows['id']; ?>" class="btn btn-primary update-conn">Edit</button></td>
+
+                <!-- Edit Button-->
                 <form action="admin.php?page=connection" method="POST">
                   <td><button value="<?php echo $rows['id']; ?>" name="delete-conn" type="submit" class="btn btn-primary delete-conn">Delete</button></td>
                 </form>
-              
+
               </tr>
           <?php
             }
@@ -123,40 +110,74 @@ $result =dbQueryList($sql);
             <h4 class="modal-title">Update Connection</h4>
           </div>
           <div id="modal-body-info" class="modal-body">
+          </div>
         </div>
       </div>
     </div>
-</div>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
 
-<script>
+    <script>
+      $(document).ready(function() {
 
-$(document).ready(function(){
+        $('.update-conn').click(function() {
 
-$('.update-conn').click(function(){
-  
-  var conn_id = $(this).data('id');
- 
-  // AJAX request
-  $.ajax({
-   url: 'includes/pages/update_connections.php',
-   type: 'get',
-  
-   data: {conn_id: conn_id},
-   success: function(response){ 
-     // Add response in Modal body
-     $('.modal-body').html(response);
+          var conn_id = $(this).data('id');
 
-     // Display Modal
-     $('#update_modal').modal('show'); 
-   }
- });
-});
-});
-</script>
+          // AJAX request
+          $.ajax({
+            url: 'includes/pages/update_connections.php',
+            type: 'get',
 
-</section> <!-- /.content -->
+            data: {
+              conn_id: conn_id
+            },
+            success: function(response) {
+              // Add response in Modal body
+              $('.modal-body').html(response);
+              // Display Modal
+              $('#update_modal').modal('show');
+            }
+          });
+        });
+
+        //DELETE CONNECTIONS
+        $('.delete-conn').click(function() {
+
+          // AJAX request
+          $.ajax({
+            url: 'admin.php?act=connectionDelete&id=' + conn_id,
+            type: 'get',
+            success: function(response) {
+              //sweetalert need to be done
+              //   Swal.fire({
+              //   title: 'Are you sure?',
+              //   text: "You won't be able to revert this!",
+              //   icon: 'warning',
+              //   showCancelButton: true,
+              //   confirmButtonColor: '#3085d6',
+              //   cancelButtonColor: '#d33',
+              //   confirmButtonText: 'Yes, delete it!'
+              // }).then((result) => {
+              //   if (result.isConfirmed) {
+              //     //delete func
+              //     Swal.fire(
+              //       'Deleted!',
+              //       'Your file has been deleted.',
+              //       'success'
+              //     )
+              //   }
+              // })
+
+            }
+          });
+        });
+
+
+      });
+    </script>
+
+  </section> <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->

@@ -24,7 +24,15 @@ if(isset($_GET['add']) and $_GET['add']== "uri") {
 
 }
 
+if(isset($_GET['act']) and $_GET['act']== "connectionDelete") {
 
+    if($_GET['id'] > 0){
+         $query = dbQuery("DELETE FROM connections where id = '".$_GET['id']."' ");
+
+         $query = explode(":",$query);
+         die($query[0]);
+    }
+}
 
 
 include("includes/header.php");
@@ -37,5 +45,7 @@ include("includes/header.php");
     }
 
 include("includes/footer.php");
+
+
 
 ?>
