@@ -16,6 +16,27 @@ $currentDBSize = dbQueryList($currentDBSizeSQl)->fetch(PDO::FETCH_NUM, PDO::FETC
 
 ?>
 
+<?php
+// Create connection data by day 
+$conn = new mysqli('localhost', 'root', '', 'gradproj');
+
+
+$sql_day ="select count(*) as count_by_day from db_status group by day(data_time)";
+
+$result_day = $conn->query($sql_day);
+
+$arr_day = array();
+
+
+if($result_day->num_rows > 0){
+  while($row_day= $result_day->fetch_assoc()){
+
+    (int)$count_day =$row_day['count_by_day'];
+    array_push($arr_day,$count_day);
+
+  }
+}
+?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -93,6 +114,7 @@ $currentDBSize = dbQueryList($currentDBSizeSQl)->fetch(PDO::FETCH_NUM, PDO::FETC
         </div>
 
         <script>
+          //Data by Day
           let myChart = document.getElementById('myChart').getContext('2d');
 
           // Global Options
@@ -107,18 +129,14 @@ $currentDBSize = dbQueryList($currentDBSizeSQl)->fetch(PDO::FETCH_NUM, PDO::FETC
               datasets: [{
                 label: 'Data',
                 data: [
-                  617594,
-                  181045,
-                  153060,
-                  106519,
-                  105162,
-                  95072,
-                  617594,
-                  181045,
-                  153060,
-                  106519,
-                  105162,
-                  95072
+                  <?php echo $arr_day[0] ?>,
+                  <?php echo $arr_day[1] ?>,
+                  <?php echo $arr_day[2] ?>,
+                  <?php echo $arr_day[3] ?>,
+                  <?php echo $arr_day[4] ?>,
+                  <?php echo $arr_day[5] ?>,
+                  <?php echo $arr_day[6] ?>,
+
                 ],
 
                 //backgroundColor:'green',
@@ -169,21 +187,21 @@ $currentDBSize = dbQueryList($currentDBSizeSQl)->fetch(PDO::FETCH_NUM, PDO::FETC
           let massPopChart2 = new Chart(dbStatusChart, {
             type: 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
             data: {
-              labels: ['Database Status'],
+              labels: ['Database Disk Status'],
               datasets: [{
                 label: 'Data-%',
                 data: [
                   <?php echo $currentDBSize[0]; ?>,
-                  10,
-                  20,
-                  30,
-                  40,
-                  50,
-                  60,
-                  70,
-                  80,
-                  90,
-                  100
+               0.1,
+               0.2,
+               0.4,
+               0.6,
+               0.8,
+               1,
+               1.2,
+               1.4,
+               1.6,
+               1.8
                 ],
 
                 //backgroundColor:'green',
