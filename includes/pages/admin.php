@@ -53,14 +53,17 @@
 
             <?php
 
-            // Create connection
+            // Create connection data by month 
             $conn = new mysqli('localhost', 'root', '', 'gradproj');
 
 
             $sql = "select count(*) as count_by_month  from db_status group by month(data_time) ";
+            $sql_incominglog ="select count(*) as count_by_month  from siem_logs group by month(log_time)";
 
             $result = $conn->query($sql);
+            $result_incoming = $conn->query($sql_incominglog);
             $array_mont = array();
+            $array_mont_incoming = array();
 
             if ($result->num_rows > 0) {
 
@@ -68,6 +71,15 @@
 
                 (int)$counted_month = $rows['count_by_month'];
                 array_push($array_mont, $counted_month);
+              }
+            }
+
+            if($result_incoming->num_rows>0){
+              while($row_incoming = $result_incoming->fetch_assoc()){
+
+                (int)$count_incoming =$row_incoming['count_by_month'];
+                array_push($array_mont_incoming,$count_incoming);
+
               }
             }
             ?>
@@ -335,18 +347,19 @@
             datasets: [{
               label: 'Data Entries',
               data: [
-                217594,
-                481045,
-                253060,
-                406519,
-                305162,
-                150722,
-                317594,
-                481045,
-                753060,
-                306519,
-                305162,
-                75072
+               <?php echo $array_mont_incoming[0] ?>,
+               <?php echo $array_mont_incoming[1] ?>,
+               <?php echo $array_mont_incoming[2] ?>,
+               <?php echo $array_mont_incoming[3] ?>,
+               <?php echo $array_mont_incoming[4] ?>,
+               <?php echo $array_mont_incoming[5] ?>,
+               <?php echo $array_mont_incoming[6] ?>,
+               <?php echo $array_mont_incoming[7] ?>,
+               <?php echo $array_mont_incoming[8] ?>,
+               <?php echo $array_mont_incoming[9] ?>,
+               <?php echo $array_mont_incoming[10] ?>,
+               <?php echo $array_mont_incoming[11] ?>,
+
               ],
               backgroundColor: '#cd2626',
 
