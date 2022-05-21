@@ -31,7 +31,7 @@ if(isset($conn_id_test))
 
 $response ="";
 
-    $response="<form method='post' action='admin.php?page=connection'>";
+    $response="<form method='post' action='admin.php?page=update_connections.php'>";
     $response.="<label>Connection Name</label>";
     $response.="<input type='text' name='conn-name' id='Mconn_name' value='".$row['connection_name']."' class='form-control' /><br />";
     $response.="<label>Api Query</label>";
@@ -51,14 +51,14 @@ $response ="";
     $response.="<label class='form-check-label' for='inlineRadio2'>OFF</label>";
     $response.="</div></div><br />";
     $response.="<input type='hidden' name='conn_id' id='conn_id' />";
-    $response.="<input type='submit' name='insert' id='insert' value='Update' class='btn btn-success' />";
+    $response.="<input type='submit' name='update_connection_btn' id='insert' value='Update' class='btn btn-success' />";
     $response.="</form>";
 
  echo $response;
 
 }
 //Update part need to be fixed
-if(isset($_POST['insert'])){
+if(isset($_POST['update_connection_btn'])){
    
     $connection_name = $_POST['conn-name'];
     $api =$_POST['api-query'];
@@ -66,9 +66,9 @@ if(isset($_POST['insert'])){
     $borwhite= $_POST['blackorwhite'];
     $status =$_POST['inlineRadioOptions'];
 
-   $sql= "UPDATE  connections SET connection_name ='$connection_name', api_query ='$api', fetch_time ='$fetch_time', blackOrWhite ='$borwhite', '', userwhocreated ='', creationReason ='', status ='$status' WHERE id='$conn_id_test' ";
+   $sql= "UPDATE  connections SET connection_name ='$connection_name', api_query ='$api', fetch_time ='$fetch_time', blackOrWhite ='$borwhite', '', userwhocreated ='', creationReason ='', status ='$status' WHERE id=$conn_id_test ";
    $result = $conn->query($sql);
-
-
    
+   header("Location:admin.php?page=connection");
 }
+?>
