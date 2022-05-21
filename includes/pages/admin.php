@@ -47,7 +47,30 @@
           1-ip
           2-hash
           3-url
+
+         
           -->
+
+            <?php
+
+            // Create connection
+            $conn = new mysqli('localhost', 'root', '', 'gradproj');
+
+
+            $sql = "select count(*) as count_by_month  from db_status group by month(data_time) ";
+
+            $result = $conn->query($sql);
+            $array_mont = array();
+
+            if ($result->num_rows > 0) {
+
+              while ($rows = $result->fetch_assoc()) {
+
+                (int)$counted_month = $rows['count_by_month'];
+                array_push($array_mont, $counted_month);
+              }
+            }
+            ?>
             <?php
 
             $sql = "SELECT COUNT(id) FROM db_status WHERE info_type = 1;";
@@ -57,6 +80,7 @@
             $rows2 = dbQueryList($sql2)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
 
             $total = $rows[0] + $rows2[0];
+
 
             ?>
             <h3><?php echo floor(($rows[0] / $total) * 100) ?><sup style="font-size: 20px">%</sup></h3>
@@ -238,10 +262,12 @@
       <script>
         let myChart = document.getElementById('myChart').getContext('2d');
 
+
         // Global Options
         Chart.defaults.global.defaultFontFamily = 'Lato';
         Chart.defaults.global.defaultFontSize = 10;
         Chart.defaults.global.defaultFontColor = '#777';
+
 
         let massPopChart = new Chart(myChart, {
           type: 'line', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
@@ -250,18 +276,19 @@
             datasets: [{
               label: 'Data Entries',
               data: [
-                617594,
-                181045,
-                153060,
-                106519,
-                105162,
-                95072,
-                617594,
-                181045,
-                153060,
-                106519,
-                105162,
-                95072
+                <?php  echo $array_mont[0]?>,
+                <?php  echo $array_mont[1]?>,
+                <?php  echo $array_mont[2]?>,
+                <?php  echo $array_mont[3]?>,
+                <?php  echo $array_mont[4]?>,
+                <?php  echo $array_mont[5]?>,
+                <?php  echo $array_mont[6]?>,
+                <?php  echo $array_mont[7]?>,
+                <?php  echo $array_mont[8]?>,
+                <?php  echo $array_mont[9]?>,
+                <?php  echo $array_mont[10]?>,
+                <?php  echo $array_mont[11]?>,
+               
               ],
               backgroundColor: 'green',
 
@@ -365,16 +392,16 @@
             datasets: [{
               label: 'Data ',
               data: [
-                
+
                 517594,
                 80594,
                 80594
-                
+
               ],
-              backgroundColor:[
-            'rgba(0, 0, 0, 1)',
-            'rgba(255, 255, 255, 1)'
-          ],
+              backgroundColor: [
+                'rgba(0, 0, 0, 1)',
+                'rgba(255, 255, 255, 1)'
+              ],
 
               borderWidth: 3,
               borderColor: '#777',
