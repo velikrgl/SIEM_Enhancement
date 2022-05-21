@@ -52,6 +52,7 @@ else if(isset($_GET['filter']) && $_GET['filter'] == 3) { $filter = "ALL";  $fNu
                                             <th>ID</th>
                                             <th><?php echo $filter; ?></th>
                                             <th>Black / White</th>
+                                            <!--<th>Data Inserted Date</th>-->
                                         </tr>
                                     </thead>
                                       
