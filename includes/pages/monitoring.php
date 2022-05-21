@@ -12,6 +12,31 @@ $ctTows3 = dbQueryList($sql3)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
 
 
 ?>
+
+<?php
+
+// Create connection SCANNED DATA
+$conn = new mysqli('localhost', 'root', '', 'gradproj');
+
+
+$sql_scanned ="select count(*) as count_by_month  from scanned_db group by month(scanned_time)";
+
+$result_scanned = $conn->query($sql_scanned);
+
+$arr_scanned = array();
+
+
+if($result_scanned->num_rows > 0){
+  while($row_scanned= $result_scanned->fetch_assoc()){
+
+    (int)$count_scanned =$row_scanned['count_by_month'];
+    array_push($arr_scanned,$count_scanned);
+
+  }
+}
+?>
+
+
   
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -85,18 +110,18 @@ $ctTows3 = dbQueryList($sql3)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
               datasets: [{
                 label: 'Scanned Data',
                 data: [
-                  617594,
-                  181045,
-                  153060,
-                  106519,
-                  105162,
-                  95072,
-                  617594,
-                  181045,
-                  153060,
-                  106519,
-                  105162,
-                  95072
+                  <?php echo $arr_scanned[0] ?>,
+                  <?php echo $arr_scanned[1] ?>,
+                  <?php echo $arr_scanned[2] ?>,
+                  <?php echo $arr_scanned[3] ?>,
+                  <?php echo $arr_scanned[4] ?>,
+                  <?php echo $arr_scanned[5] ?>,
+                  <?php echo $arr_scanned[6] ?>,
+                  <?php echo $arr_scanned[7] ?>,
+                  <?php echo $arr_scanned[8] ?>,
+                  <?php echo $arr_scanned[9] ?>,
+                  <?php echo $arr_scanned[10] ?>,
+                  <?php echo $arr_scanned[11] ?>,
                 ],
                 //backgroundColor:'green',
                 backgroundColor: [

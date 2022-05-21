@@ -174,7 +174,7 @@
 
             </div>
             <div class="box-body">
-              <canvas id="myChart" style="height :250px;"></canvas>
+              <canvas id="scanned_chart" style="height :250px;"></canvas>
             </div>
             <!-- /.box-body-->
           </div>
@@ -272,7 +272,7 @@
 
 
       <script>
-        let myChart = document.getElementById('myChart').getContext('2d');
+        let scanned_chart = document.getElementById('scanned_chart').getContext('2d');
 
 
         // Global Options
@@ -281,7 +281,7 @@
         Chart.defaults.global.defaultFontColor = '#777';
 
 
-        let massPopChart = new Chart(myChart, {
+        let massPopChart = new Chart(scanned_chart, {
           type: 'line', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
           data: {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
