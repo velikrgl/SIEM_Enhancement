@@ -383,6 +383,18 @@
         });
 
 
+        <?php 
+        
+        $sql_black = "SELECT COUNT(id) FROM `db_status` WHERE blackorWhite=1";
+        $sql_white = "SELECT COUNT(id) FROM `db_status` WHERE blackorWhite=0";
+
+        $result_black = $conn->query($sql_black);
+        $result_white = $conn->query($sql_white);
+        
+        $row_black=mysqli_fetch_array($result_black);
+        $row_white=mysqli_fetch_array($result_white);
+
+        ?>
         let blackwhite = document.getElementById('blackwhite').getContext('2d');
 
         let massPopChart4 = new Chart(blackwhite, {
@@ -392,10 +404,12 @@
             datasets: [{
               label: 'Data ',
               data: [
-
-                517594,
-                80594,
-                80594
+                <?php echo $row_black[0] ?>,
+                <?php echo $row_white[0] ?>,
+                5,
+                10,
+                15,
+                20,
 
               ],
               backgroundColor: [
