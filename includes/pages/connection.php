@@ -82,12 +82,12 @@ if (isset($_POST['delete-conn'])) {
                 ?>
                 <td><?php echo $rows['userwhocreated']; ?></td>
                 <td><?php echo $rows['createdTime']; ?></td>
-                <td><button type="submit" data-id="<?php echo $rows['id']; ?>" class="btn btn-primary update-conn">Edit</button></td>
+                <td><button onclick="javascript:conEdit('<?php echo $rows['id']; ?>');" type="button" data-id="<?php echo $rows['id']; ?>" class="btn btn-primary">Edit</button></td>
 
                 <!-- Edit Button-->
-                <form action="admin.php?page=connection" method="POST">
-                  <td><button value="<?php echo $rows['id']; ?>" name="delete-conn" type="submit" class="btn btn-primary delete-conn">Delete</button></td>
-                </form>
+                <!--<form action="admin.php?page=connection" method="POST">-->
+                  <td><button onclick="javascript:conDelete('<?php echo $rows['id']; ?>');" value="<?php echo $rows['id']; ?>" name="delete-conn" type="button" class="btn btn-primary delete-conn">Delete</button></td>
+                <!--</form>-->
 
               </tr>
           <?php
@@ -115,10 +115,12 @@ if (isset($_POST['delete-conn'])) {
       </div>
     </div>
 
+    <div style="display:none;" id="coneditGEt"></div>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
 
     <script>
+      var conData;
       $(document).ready(function() {
 
         $('.update-conn').click(function() {
@@ -142,40 +144,109 @@ if (isset($_POST['delete-conn'])) {
           });
         });
 
-        //DELETE CONNECTIONS
-        $('.delete-conn').click(function() {
+      });
 
-          // AJAX request
-          $.ajax({
-            url: 'admin.php?act=connectionDelete&id=' + conn_id,
+      
+      function conEdit(id){
+        //alert(id);
+
+        $.ajax({
+            url: 'admin.php?act=conEditGet&id='+id,
             type: 'get',
             success: function(response) {
-              //sweetalert need to be done
-              //   Swal.fire({
-              //   title: 'Are you sure?',
-              //   text: "You won't be able to revert this!",
-              //   icon: 'warning',
-              //   showCancelButton: true,
-              //   confirmButtonColor: '#3085d6',
-              //   cancelButtonColor: '#d33',
-              //   confirmButtonText: 'Yes, delete it!'
-              // }).then((result) => {
-              //   if (result.isConfirmed) {
-              //     //delete func
-              //     Swal.fire(
-              //       'Deleted!',
-              //       'Your file has been deleted.',
-              //       'success'
-              //     )
-              //   }
-              // })
-
+              conEditSweet(id,response)
             }
+           
           });
-        });
+
+      }
+
+      function conEditSweet(id,conData){
+
+       conDataVeris = conData.split(",");
+       var blakOrWhite,statuson;
 
 
+        if(conDataVeris[4] == 1) blakOrWhite="<option value='1' selected>Black</option><option value='0'>White</option>"; else blakOrWhite="<option value='1'>Black</option><option value='0' selected>White</option>";
+        if(conDataVeris[8] == 1) statuson='ON<input type="radio" name="status" class="swal2-input statusMod" value="1" checked>OFF<input type="radio" name="status" class="swal2-input statusMod" value="0" >'; else statuson='ON<input type="radio" name="status" class="swal2-input statusMod" value="1" >OFF<input type="radio" name="status" class="swal2-input statusMod" value="0" checked>';
+        //2,usom,usom.com,60,1,2022-04-02,admin,usom usage,1
+
+      Swal.fire({
+        title: 'Edit',
+        html: '<input type="text" id="Mconn_name" class="swal2-input" value="'+conDataVeris[1]+'" >'+
+        '<input type="text" id="api-query" class="swal2-input" value="'+conDataVeris[2]+'">'+
+        '<input type="text" id="fetch_time" class="swal2-input" value="'+conDataVeris[3]+'" >'+
+        '<select name="blackorwhite" id="blackorwhite" class="form-control">'+blakOrWhite+'</select>'+
+        statuson,
+        confirmButtonText: 'UPDATE',
+        focusConfirm: false,
+        preConfirm: () => {
+          const Mconn_name = Swal.getPopup().querySelector('#Mconn_name').value;
+          const api_query = Swal.getPopup().querySelector('#api-query').value;
+          const fetch_time = Swal.getPopup().querySelector('#fetch_time').value;
+          const blackorwhite = Swal.getPopup().querySelector('#blackorwhite').value;
+          const qstatuson = Swal.getPopup().querySelector(".statusMod:checked").value;
+
+          $.ajax({
+            url: 'admin.php?act=connectionEdit&id='+id,
+            type: 'post',
+
+            data: {
+              Mconn_name: Mconn_name, api_query: api_query,fetch_time:fetch_time, blackorwhite:blackorwhite,qstatuson:qstatuson
+            },
+            success: function(response) {  
+              Swal.fire({ position: 'top-end', icon: 'success', title: 'Your work has been saved', showConfirmButton: false, timer: 1500 });
+              setTimeout(function(){location.reload();}, 3000);               
+
+              
+            }
+          });        
+
+          //return { Mconn_name: Mconn_name, api_query: api_query }
+
+        }
       });
+
+
+      }
+
+
+      function conDelete(id){
+        //alert(id);
+
+                Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+              }).then((result) => {
+
+                if (result.isConfirmed) {
+                  //delete func
+                  $.ajax({
+                    url: 'admin.php?act=connectionDelete&id=' + id,
+                    type: 'get',
+                    success: function(response) { 
+                      
+                      Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                      );
+
+                      location.reload();
+                 }
+
+                  });
+
+
+                  
+                } 
+              });
+      }
     </script>
 
   </section> <!-- /.content -->
