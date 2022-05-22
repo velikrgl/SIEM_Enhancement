@@ -37,7 +37,7 @@ if (isset($_POST['delete-conn'])) {
               <th scope="col">BlackOrWhite</th>
               <th scope="col">CreatedUser</th>
               <th scope="col">Creation Date</th>
-              <th scope="col">Edit Con </th>
+              <th scope="col">Update Con </th>
               <th scope="col">Delete Con</th>
             </tr>
           </thead>
@@ -82,7 +82,7 @@ if (isset($_POST['delete-conn'])) {
                 ?>
                 <td><?php echo $rows['userwhocreated']; ?></td>
                 <td><?php echo $rows['createdTime']; ?></td>
-                <td><button onclick="javascript:conEdit('<?php echo $rows['id']; ?>');" type="button" data-id="<?php echo $rows['id']; ?>" class="btn btn-primary">Edit</button></td>
+                <td><button onclick="javascript:conEdit('<?php echo $rows['id']; ?>');" type="button" data-id="<?php echo $rows['id']; ?>" class="btn btn-primary">Update</button></td>
 
                 <!-- Edit Button-->
                 <!--<form action="admin.php?page=connection" method="POST">-->
@@ -167,16 +167,21 @@ if (isset($_POST['delete-conn'])) {
        var blakOrWhite,statuson;
 
 
-        if(conDataVeris[4] == 1) blakOrWhite="<option value='1' selected>Black</option><option value='0'>White</option>"; else blakOrWhite="<option value='1'>Black</option><option value='0' selected>White</option>";
+        if(conDataVeris[4] == 1) blakOrWhite=" <option value='1' selected>Black</option><option value='0'>White</option>"; else blakOrWhite="<option value='1'>Black</option><option value='0' selected>White</option>";
         if(conDataVeris[8] == 1) statuson='ON<input type="radio" name="status" class="swal2-input statusMod" value="1" checked>OFF<input type="radio" name="status" class="swal2-input statusMod" value="0" >'; else statuson='ON<input type="radio" name="status" class="swal2-input statusMod" value="1" >OFF<input type="radio" name="status" class="swal2-input statusMod" value="0" checked>';
         //2,usom,usom.com,60,1,2022-04-02,admin,usom usage,1
 
       Swal.fire({
-        title: 'Edit',
-        html: '<input type="text" id="Mconn_name" class="swal2-input" value="'+conDataVeris[1]+'" >'+
+        title: 'Update Connection',
+        html:
+        '<label class="form-control" >Connection Name</label>'+
+        '<input type="text" id="Mconn_name" class="swal2-input" value="'+conDataVeris[1]+'" >'+
+        '<label class="form-control" >Api Query:</label>'+
         '<input type="text" id="api-query" class="swal2-input" value="'+conDataVeris[2]+'">'+
+        '<label class="form-control" >Fetch Time</label>'+
         '<input type="text" id="fetch_time" class="swal2-input" value="'+conDataVeris[3]+'" >'+
-        '<select name="blackorwhite" id="blackorwhite" class="form-control">'+blakOrWhite+'</select>'+
+        '<label class="form-control">BlackOrWhite</label>'+
+        '<select name="blackorwhite" id="blackorwhite" class="form-control">'+blakOrWhite+'</select>'+'<label style="margin-bottom:10px; margin-top:10px" class="form-control" >Status</label>'+
         statuson,
         confirmButtonText: 'UPDATE',
         focusConfirm: false,
@@ -195,7 +200,7 @@ if (isset($_POST['delete-conn'])) {
               Mconn_name: Mconn_name, api_query: api_query,fetch_time:fetch_time, blackorwhite:blackorwhite,qstatuson:qstatuson
             },
             success: function(response) {  
-              Swal.fire({ position: 'top-end', icon: 'success', title: 'Your work has been saved', showConfirmButton: false, timer: 1500 });
+              Swal.fire({ position: 'center', icon: 'success', title: 'Connection Updated Successully !', showConfirmButton: false, timer: 1500 });
               setTimeout(function(){location.reload();}, 3000);               
 
               

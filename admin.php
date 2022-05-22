@@ -40,7 +40,7 @@ if(isset($_GET['act']) and $_GET['act']== "connectionEdit") {
 
     if($_GET['id'] > 0){
          
-         $sql= dbQuery("UPDATE  connections SET connection_name ='".$_POST['Mconn_name']."', api_query ='".$_POST['api_query']."', fetch_time ='".$_POST['fetch_time']."', blackOrWhite ='".$_POST['blackorwhite']."', userwhocreated ='', creationReason ='', status ='".$_POST['qstatuson']."' WHERE id= '".$_GET['id']."' ");
+         $sql= dbQuery("UPDATE  connections SET connection_name ='".$_POST['Mconn_name']."', api_query ='".$_POST['api_query']."', fetch_time ='".$_POST['fetch_time']."', blackOrWhite ='".$_POST['blackorwhite']."', status ='".$_POST['qstatuson']."' WHERE id= '".$_GET['id']."' ");
          
         $query = explode(":",$sql);
         die($query[0]);
