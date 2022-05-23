@@ -47,7 +47,7 @@ if (isset($_POST['delete-conn'])) {
 
           $sql = "SELECT * FROM  connections";
           $result = dbQueryList($sql);
-
+          $counted_table=1;
 
 
           if (count($result->fetch(PDO::FETCH_ASSOC)) > 0) {
@@ -57,7 +57,7 @@ if (isset($_POST['delete-conn'])) {
               <tr>
                 <!--FETCHING DATA FROM EACH 
                     ROW OF EVERY COLUMN-->
-                <td><?php echo $rows['id']; ?></td>
+                <td><?php echo  $counted_table++ ?></td>
                 <td id="connection_name_table"><?php echo $rows['connection_name']; ?></td>
                 <?php $status = $rows['status'];
                 if ($status == 1) {
