@@ -104,7 +104,7 @@
             </div>
             <div class="modal-body" id="connection_details_body">
           <?php
-          echo "test";
+          
           ?>
 
             </div>

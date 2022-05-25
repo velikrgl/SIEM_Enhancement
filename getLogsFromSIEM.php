@@ -1,7 +1,7 @@
 <?php
 //curl -u admin:MyStrongPassword -H "Accept: application/json" -X GET "http://192.168.15.132:9000/api/users"
 
-
+//host-ip
 $host = 'http://192.168.15.132:9000/api/search/universal/relative?query=source%3ADESKTOP-60J67AC&range=29604800&decorate=true';
 $user_name = 'admin';
 $password = 'MyStrongPassword';
