@@ -110,7 +110,7 @@ if (isset($_POST['fetch_scannedDB'])) {
 
         
     }
-        $source_ip = "192.168.15.131";
+        $source_ip = "192.168.15.137";
         $bad_ip = "192.168.15.132";
 
         echo shell_exec("C:\\PsExec.exe  -s \\\\$source_ip -u win10dev -p aybutest C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe New-NetFirewallRule -RemoteAddress $bad_ip -DisplayName AYBU -Direction Outbound -Profile Any -Action Block");
@@ -139,7 +139,7 @@ if (isset($_POST['fetch_scannedDB'])) {
 
         </div>
         <form action="admin.php?page=reports&filter=4" method="POST">
-            <button style="float: right;  color: darkslategrey; font-weight: bolder; " name="fetch_scannedDB" type="submit" class="btn btn-warning"><i style="margin-right: 10px;" class="fa-solid fa-arrows-rotate fa-xl"></i>Fetch Data Now</button>
+            <button style="float: right; margin-top: -35px;  color: darkslategrey; font-weight: bolder; " name="fetch_scannedDB" type="submit" class="btn btn-warning"><i style="margin-right: 10px;" class="fa-solid fa-arrows-rotate fa-xl"></i>Fetch Data Now</button>
         </form>
 
     </section> <!-- Main content -->
