@@ -1,44 +1,36 @@
-<script>
-  datas = "";
-  addListSrat = 0;
-</script>
-
 <?php
-
 
 $conn = new mysqli('localhost', 'root', '', 'gradproj');
 
-if(isset($_POST['add_white_single'])){
+if (isset($_POST['add_white_single'])) {
 
-    $source_type = $_POST['source_type']; //info_type
-    $source= $_POST['ip_hash_url'];//ip_hash_url
-    $t = time();
-    $time = (date("Y-m-d", $t));
-
-    
-    $sql = "INSERT INTO `db_status` (ip_hash_url, info_type, blackorWhite, connectionID, data_time) VALUES ('$source' , '$source_type', '1', '2', '$time');"; 
-
-    $result=$conn->query($sql);
-
-    echo '<script> swal("Successfull", "Data is added to white list !", "success"); </script>';
+  $source_type = $_POST['source_type']; //info_type
+  $source = $_POST['ip_hash_url']; //ip_hash_url
+  $t = time();
+  $time = (date("Y-m-d", $t));
 
 
+  $sql = "INSERT INTO  db_status  (ip_hash_url, info_type, blackorWhite, connectionID, data_time) VALUES ('$source' , '$source_type', '1', '2', '$time');";
+
+  $result = $conn->query($sql);
+
+  echo '<script> swal("Successfull", "Data is added to white list !", "success"); </script>';
 }
-if(isset($_POST['add_black_single'])){
-    
-    $source_type = $_POST['source_type']; //info_type
-    $source= $_POST['ip_hash_url'];//ip_hash_url
-    $t = time();
-    $time = (date("Y-m-d", $t));
+if (isset($_POST['add_black_single'])) {
+
+  $source_type = $_POST['source_type']; //info_type
+  $source = $_POST['ip_hash_url']; //ip_hash_url
+  $t = time();
+  $time = (date("Y-m-d", $t));
 
 
-    $sql = "INSERT INTO `db_status` (ip_hash_url,info_type,blackorWhite,connectionID,data_time) VALUES ('$source' , '$source_type', '0', '2', '$time');"; 
+  $sql = "INSERT INTO  db_status  (ip_hash_url,info_type,blackorWhite,connectionID,data_time) VALUES ('$source' , '$source_type', '0', '2', '$time');";
 
-    $result = $conn->query($sql);
+  $result = $conn->query($sql);
 
-    echo '<script> swal("Successfull", "Data is added to black list !", "success"); </script>';
-
+ 
 }
+
 
 if (isset($_POST['addDatabase_black'])) {
 
@@ -50,24 +42,58 @@ if (isset($_POST['addDatabase_black'])) {
   $t = time();
   $time = (date("Y-m-d", $t));
 
-  $query = dbQueryLastId("INSERT INTO connections (connection_name,api_query,fetch_time,blackOrWhite,createdTime,userwhocreated,creationReason,status) VALUES ('$conName','$url_external','$refresh_rate','1','$time','$Y_user','$creation_reason','1')");
+  libxml_use_internal_errors(TRUE);
 
-  $query = explode(":", $query);
-  if ($query[0] == "ok") {
+  $context = stream_context_create(array('ssl' => array(
+    'verify_peer' => true,
+    'cafile' => 'C:/xampp/apache/bin/curl-ca-bundle.crt'
+  )));
+  libxml_set_streams_context($context);
 
-    $lastID = $query[1];
+  $objXmlDocument = simplexml_load_file("$url_external");
 
-    $urlFile = $url_external;
-    $lines = file($urlFile);
-    $lines = str_replace("\n", "", $lines);
-
-    $i = 0;
-
-    echo '<script>var datas = "' . implode($lines, ",") . '"; uriType=1; uriConnectID="' . $lastID . '";  addListSrat = 1; Swal.fire("Success", "Black connection added successfully and ' . $i . ' datas add database", "success"); </script>';
-  } else {
-    echo '<script>Swal.fire("errror", "Wrogn!", "danger"); </script>';
+  if ($objXmlDocument === FALSE) {
+    echo "There were errors parsing the XML file.\n";
+    foreach (libxml_get_errors() as $error) {
+      echo $error->message;
+    }
+    exit;
   }
 
+  $objJsonDocument = json_encode($objXmlDocument);
+  $arrOutput = json_decode($objJsonDocument, TRUE);
+
+  //How many data will be come from USOM
+  for($i=0;$i<10;$i++){
+    $connectionId=2;
+    $val= $arrOutput['url-list']['url-info'][$i]['url'];
+    $info_type =1;
+    
+    if(filter_var($val, FILTER_VALIDATE_IP) !== false):
+    $info_type=1;
+    
+    elseif (filter_var($val, FILTER_VALIDATE_URL)!== false):
+    $info_type=3;
+    
+    else:
+      $info_type =2;
+    endif;
+    $blackOrWhite="1";
+   
+    
+    $date= $arrOutput['url-list']['url-info'][$i]['date'];
+    
+    
+    $add_whiteDb = "INSERT INTO  db_status (ip_hash_url ,  info_type ,  blackorWhite ,  connectionID ,  data_time ) 
+    VALUES ('$val','$info_type','$blackOrWhite','$connectionId','$date') "; 
+    $conn->query($add_whiteDb);  
+    
+    }
+    
+    
+    $query_connection ="INSERT INTO connections (connection_name,api_query,fetch_time,blackOrWhite,createdTime,userwhocreated,creationReason,status) VALUES ('$conName','$url_external','$refresh_rate','1','$time','$Y_user','$creation_reason','1')";
+    $conn->query($query_connection);  
+  
 
 
   // Burdan sonra connections tabına yönlenecek
@@ -84,25 +110,63 @@ if (isset($_POST['addDatabase_white'])) {
   $creation_reason = $_POST['creation_reason'];
   $t = time();
   $time = (date("Y-m-d", $t));
+  
+  libxml_use_internal_errors(TRUE);
 
-  $query = dbQueryLastId("INSERT INTO connections (connection_name,api_query,fetch_time,blackOrWhite,createdTime,userwhocreated,creationReason,status) VALUES ('$conName','$url_external','$refresh_rate','2','$time','$Y_user','$creation_reason','1')");
+  $context = stream_context_create(array('ssl' => array(
+    'verify_peer' => true,
+    'cafile' => 'C:/xampp/apache/bin/curl-ca-bundle.crt'
+  )));
+  libxml_set_streams_context($context);
 
-  $query = explode(":", $query);
-  if ($query[0] == "ok") {
+  $objXmlDocument = simplexml_load_file("$url_external");
 
-    $lastID = $query[1];
-
-    $urlFile = $url_external;
-    $lines = file($urlFile);
-    $lines = str_replace("\n", "", $lines);
-
-
-    $i = 0;
-
-    echo '<script>var datas = "' . implode($lines, ",") . '";  uriType=2; uriConnectID="' . $lastID . '";  addListSrat = 1; Swal.fire("Success", "White connection added successfully and ' . $i . ' datas add database", "success"); </script>';
-  } else {
-    echo '<script>Swal.fire("errror", "Wrogn!", "danger"); </script>';
+  if ($objXmlDocument === FALSE) {
+    echo "There were errors parsing the XML file.\n";
+    foreach (libxml_get_errors() as $error) {
+      echo $error->message;
+    }
+    exit;
   }
+
+  $objJsonDocument = json_encode($objXmlDocument);
+  $arrOutput = json_decode($objJsonDocument, TRUE);
+
+// echo "update:" . $arrOutput['xml-info']['updated'] . "<br>";
+// echo "url-list:" . $arrOutput['url-list']['url-info'][0]['url'];
+
+for($i=0;$i<10;$i++){
+
+  
+$val= $arrOutput['url-list']['url-info'][$i]['url'];
+$info_type =1;
+
+if(filter_var($val, FILTER_VALIDATE_IP) !== false):
+$info_type=1;
+
+elseif (filter_var($val, FILTER_VALIDATE_URL)!== false):
+$info_type=3;
+
+else:
+  $info_type =2;
+endif;
+$blackOrWhite="2";
+
+$connectionId=2;
+$date= $arrOutput['url-list']['url-info'][$i]['date'];
+
+
+$add_whiteDb = "INSERT INTO  db_status (ip_hash_url ,  info_type ,  blackorWhite ,  connectionID ,  data_time ) 
+VALUES ('$val','$info_type','$blackOrWhite','$connectionId','$date') "; 
+$conn->query($add_whiteDb);  
+
+}
+
+
+$query_connection ="INSERT INTO connections (connection_name,api_query,fetch_time,blackOrWhite,createdTime,userwhocreated,creationReason,status) VALUES ('$conName','$url_external','$refresh_rate','2','$time','$Y_user','$creation_reason','1')";
+$conn->query($query_connection);  
+
+
 
   // Burdan sonra connections tabına yönlenecek
 
@@ -257,12 +321,7 @@ if (isset($_POST['addDatabase_white'])) {
 
 
   <section class="content">
-    <div>
-      <button id="startStopButton" onclick="javascript:ssButton();" style="display:none;" class="btn btn-primary">STOP</button>
-    </div>
-
-    <div style="height:300px; width:100%;overflow: auto;background-color: #fff;padding: 20px; clear=both;" id="dataLog">
-    </div>
+  
 
   </section>
 
@@ -270,49 +329,4 @@ if (isset($_POST['addDatabase_white'])) {
 
 </div>
 
-<script>
-  if (datas != "") datasSplit = datas.split(",");
-  dNum = 0;
-  ipNum = 0;
-  URLNum = 0;
-  HASHNum = 0;
-
-  if (addListSrat == 1) {
-    addData(datasSplit[dNum]);
-    $("#startStopButton").show();
-  }
-
-  function ssButton() {
-    if (addListSrat == 1) {
-      addListSrat = 0;
-      $("#startStopButton").html("START");
-    } else {
-      addListSrat = 1;
-      $("#startStopButton").html("STOP");
-      addData(datasSplit[dNum]);
-    }
-  }
-
-  function addData(uri) {
-    if (uri != "" && addListSrat == 1) {
-      $.ajax({
-        type: "GET",
-        url: 'admin.php?add=uri&uri=' + uri + '&uriType=' + uriType + '&conID=' + uriConnectID,
-        showLoaderOnConfirm: true,
-        success: function(result) {
-          $("#dataLog").append("<p>" + result + "</p>");
-          $("#dataLog").scrollTop($('#dataLog').prop("scrollHeight"));
-          dNum++;
-          if (dNum < datas.length) {
-            addData(datasSplit[dNum]);
-          } else {
-            $("#dataLog").append("<p>Successfull All Data Add</p>");
-            $("#dataLog").scrollTop($('#dataLog').prop("scrollHeight"));
-          }
-
-        }
-      });
-    }
-  }
-</script>
 <!-- /.content-wrapper -->
