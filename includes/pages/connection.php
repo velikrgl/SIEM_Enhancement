@@ -50,7 +50,6 @@ if (isset($_POST['delete-conn'])) {
           $counted_table=1;
 
 
-          if (count($result->fetch(PDO::FETCH_ASSOC)) > 0) {
 
             while ($rows = $result->fetch(PDO::FETCH_ASSOC)) {
           ?>
@@ -92,9 +91,7 @@ if (isset($_POST['delete-conn'])) {
               </tr>
           <?php
             }
-          } else {
-            echo "No Result";
-          }
+       
 
           ?>
 
