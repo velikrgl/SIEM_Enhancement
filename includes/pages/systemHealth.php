@@ -19,7 +19,7 @@
 
 
       $result = dbQueryList($sql);;
-      if (count($result->fetch(PDO::FETCH_ASSOC)) > 0) {
+      
 
         while ($rows = $result->fetch(PDO::FETCH_ASSOC)) {
       ?>
@@ -70,10 +70,7 @@
           </div>
 
       <?php }
-      } 
-      else{
-      echo "NO DATA AVAILABLE ";
-      }?>
+      ?>
       <div style="margin-top: 30px;" class="clas">
 
       </div>
