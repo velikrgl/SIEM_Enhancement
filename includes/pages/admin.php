@@ -54,7 +54,7 @@
             <?php
 
             // Create connection data by month 
-            $conn = new mysqli('localhost', 'root', '', 'gradproj');
+            $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_DB);
 
 
             $sql = "select count(*) as count_by_month  from db_status group by month(data_time) ";
