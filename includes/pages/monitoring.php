@@ -16,7 +16,7 @@ $ctTows3 = dbQueryList($sql3)->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
 <?php
 
 // Create connection SCANNED DATA
-$conn = new mysqli('localhost', 'root', '', 'gradproj');
+$conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_DB);
 
 
 $sql_scanned ="select count(*) as count_by_month  from scanned_db group by month(scanned_time)";
@@ -199,7 +199,7 @@ if($result_scanned->num_rows > 0){
 
             <?php
 
-            $conn = new mysqli('localhost', 'root', '', 'gradproj');
+            $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_DB);
             $sql = "SELECT id,country,city,COUNT(country) as number,blocked,scanned_time FROM `scanned_db` GROUP BY country ORDER BY number DESC LIMIT 0,10";
 
 

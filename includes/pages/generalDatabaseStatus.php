@@ -18,7 +18,7 @@ $currentDBSize = dbQueryList($currentDBSizeSQl)->fetch(PDO::FETCH_NUM, PDO::FETC
 
 <?php
 // Create connection data by day 
-$conn = new mysqli('localhost', 'root', '', 'gradproj');
+$conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_DB);
 
 
 $sql_day ="select count(*) as count_by_day from db_status group by day(data_time)";
