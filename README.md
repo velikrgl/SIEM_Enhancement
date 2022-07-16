@@ -48,5 +48,13 @@ Dillinger uses a number of open source projects to work properly:
 
 Here you go ...
 
-
+![Xammp](https://github.com/velikrgl/SIEM_Enhancement/blob/development/ss_of_project/xammp1.PNG)
+![Dashboard](https://github.com/velikrgl/SIEM_Enhancement/blob/development/ss_of_project/dashboard.PNG)
+![SystemHealth](https://github.com/velikrgl/SIEM_Enhancement/blob/development/ss_of_project/systemhealth.PNG)
+![AddConn](https://github.com/velikrgl/SIEM_Enhancement/blob/development/ss_of_project/add_conn.PNG)
+![ListDB](https://github.com/velikrgl/SIEM_Enhancement/blob/development/ss_of_project/list_db.PNG)
+![DBStatus](https://github.com/velikrgl/SIEM_Enhancement/blob/development/ss_of_project/db_status.PNG)
+![Conn](https://github.com/velikrgl/SIEM_Enhancement/blob/development/ss_of_project/connections.PNG)
+![Monitoring](https://github.com/velikrgl/SIEM_Enhancement/blob/development/ss_of_project/monitoring.PNG)
+![Reports](https://github.com/velikrgl/SIEM_Enhancement/blob/development/ss_of_project/reports.PNG)
 
